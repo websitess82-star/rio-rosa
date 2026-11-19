@@ -1,0 +1,3285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rio Rosa — Más que un café ☕🌹 | Menú Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --black-luxe: #0D0D10;
+            --black-card: #18181D;
+            --gold-bright: #FFD15C;
+            --gold-main: #E5A93B;
+            --gold-deep: #B87D19;
+            --rose-pop: #E11D48;
+            --rose-hover: #BE123C;
+            --rose-soft: #FFE4E6;
+            --amber-soft: #FEF3C7;
+            --cream-bg: #FFF9F2;
+            --card-bg: #FFFFFF;
+            --text-dark: #18181B;
+            --text-muted: #52525B;
+            --border-pop: #F3D9B1;
+            --danger-bg: #FEE2E2;
+            --danger-text: #DC2626;
+            --whatsapp: #25D366;
+            --shadow-pop: 0 10px 28px rgba(24, 24, 27, 0.09);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #FFF5EB 0%, #FFEFF4 45%, #FFF8EE 100%);
+            color: var(--text-dark);
+            padding-bottom: 115px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.admin-open {
+            overflow: hidden;
+        }
+
+        .bg-doodles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.14;
+        }
+
+        .doodle { position: absolute; color: var(--gold-deep); }
+        .doodle.rose { color: var(--rose-pop); }
+
+        .closed-banner {
+            background: linear-gradient(90deg, #991B1B, #DC2626, #991B1B);
+            color: white;
+            text-align: center;
+            padding: 12px 16px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: none;
+            position: relative;
+            z-index: 96;
+            border-bottom: 2px solid var(--gold-bright);
+        }
+        .closed-banner.visible { display: block; }
+
+        header {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(225, 29, 72, 0.24) 0%, transparent 45%),
+                radial-gradient(circle at 80% 15%, rgba(255, 209, 92, 0.24) 0%, transparent 45%),
+                radial-gradient(circle at center, #1F1F24 0%, var(--black-luxe) 85%);
+            color: white;
+            padding: 34px 20px 28px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold-main);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+        }
+
+        .header-sparkles {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(90deg, rgba(255, 209, 92, 0.18), rgba(225, 29, 72, 0.25));
+            border: 1px solid rgba(255, 209, 92, 0.5);
+            color: var(--gold-bright);
+            padding: 5px 14px;
+            border-radius: 99px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .logo-frame {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 14px;
+            border-radius: 28px;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--gold-bright), var(--rose-pop), var(--gold-main), var(--gold-bright));
+            box-shadow: 0 0 0 4px rgba(255, 209, 92, 0.2), 0 16px 36px rgba(0, 0, 0, 0.75);
+            overflow: hidden;
+        }
+
+        .logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px;
+            background: #141417;
+            display: block;
+        }
+
+        header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFF0B3 0%, var(--gold-bright) 50%, var(--gold-main) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.05;
+        }
+
+        .tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #FDA4AF;
+            margin-top: 4px;
+        }
+
+        .header-sub {
+            font-size: 0.85rem;
+            color: #E4E4E7;
+            margin-top: 10px;
+        }
+
+        .header-meta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: #D4D4D8;
+        }
+
+        .meta-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 209, 92, 0.25);
+            padding: 4px 12px;
+            border-radius: 99px;
+        }
+
+        .btn-maps-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold-main));
+            color: var(--black-luxe);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            padding: 7px 14px;
+            border-radius: 99px;
+            box-shadow: 0 4px 14px rgba(229, 169, 59, 0.35);
+            transition: transform 0.2s ease;
+        }
+        .btn-maps-gold:hover { transform: translateY(-1px); }
+
+        .location-card {
+            max-width: 960px;
+            margin: 28px auto 8px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold-main);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            box-shadow: var(--shadow-pop);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .location-info h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            color: var(--black-luxe);
+            margin-bottom: 6px;
+        }
+
+        .location-info p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .location-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .promos-strip {
+            max-width: 960px;
+            margin: 16px auto 0;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .promo-banner-card {
+            background: linear-gradient(135deg, var(--black-luxe), #27272A);
+            border: 2px solid var(--gold-main);
+            border-radius: 18px;
+            padding: 14px 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-pop);
+        }
+
+        .promo-discount-pill {
+            display: inline-block;
+            background: var(--rose-pop);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 2px 9px;
+            border-radius: 99px;
+            margin-bottom: 4px;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 85;
+            background: rgba(255, 249, 242, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border-pop);
+            padding: 12px 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+
+        .search-box {
+            max-width: 960px;
+            margin: 0 auto 10px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 11px 16px 11px 44px;
+            border-radius: 15px;
+            border: 2px solid var(--border-pop);
+            background: white;
+            font-size: 0.94rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--rose-pop);
+            box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .categories-bar {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+
+        .categories-bar::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 99px;
+            border: 2px solid var(--border-pop);
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn.active {
+            background: linear-gradient(135deg, var(--black-luxe) 0%, #27272A 100%);
+            color: var(--gold-bright);
+            border-color: var(--gold-main);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 16px auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 34px 0 16px;
+        }
+
+        .section-badge-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--black-luxe), #27272A);
+            border: 2px solid var(--gold-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .section-header h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--black-luxe);
+        }
+
+        .section-line {
+            flex: 1;
+            height: 3px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--rose-pop), var(--gold-main), transparent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 2px solid #F3E5D0;
+            box-shadow: var(--shadow-pop);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.22s ease, border-color 0.22s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-main);
+        }
+
+        .card.featured-card {
+            border-color: var(--gold-main);
+            background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%);
+        }
+
+        .card.sold-out {
+            opacity: 0.72;
+            filter: grayscale(0.45);
+        }
+
+        .card-img-wrap {
+            width: 100%;
+            height: 185px;
+            background: #18181D;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-star {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--rose-pop), #F43F5E);
+            color: white;
+            border: 1.5px solid var(--gold-bright);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            z-index: 2;
+        }
+
+        .badge-soldout {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #18181B;
+            color: #FCA5A5;
+            border: 1.5px solid #EF4444;
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--black-luxe);
+        }
+
+        .card-price {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 700;
+            background: var(--black-luxe);
+            color: var(--gold-bright);
+            padding: 4px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--gold-main);
+            white-space: nowrap;
+        }
+
+        .card-desc {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            margin-bottom: 12px;
+        }
+
+        .ingredients-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 14px;
+            flex: 1;
+            align-content: flex-start;
+        }
+
+        .ing-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: #FFF7ED;
+            color: #9A3412;
+            padding: 3px 9px;
+            border-radius: 8px;
+            border: 1px solid #FED7AA;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-customize {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 2px solid var(--gold-main);
+            background: var(--amber-soft);
+            color: var(--black-luxe);
+            font-weight: 800;
+            font-size: 0.83rem;
+            cursor: pointer;
+        }
+
+        .btn-quick-add {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--rose-pop), var(--rose-hover));
+            color: white;
+            font-weight: 800;
+            font-size: 0.84rem;
+            cursor: pointer;
+        }
+
+        .btn-quick-add:disabled {
+            background: #71717A;
+            cursor: not-allowed;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 13, 16, 0.78);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        @media (min-width: 600px) {
+            .modal-overlay { align-items: center; }
+        }
+
+        .modal-sheet {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 540px;
+            max-height: 92vh;
+            border-radius: 26px 26px 0 0;
+            padding: 24px 20px;
+            overflow-y: auto;
+            border-top: 4px solid var(--gold-main);
+        }
+
+        @media (min-width: 600px) {
+            .modal-sheet {
+                border-radius: 26px;
+                border: 2px solid var(--gold-main);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding-bottom: 14px;
+            border-bottom: 2px dashed var(--border-pop);
+            margin-bottom: 16px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.35rem;
+            color: var(--black-luxe);
+        }
+
+        .modal-subtitle {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .btn-close {
+            background: var(--rose-soft);
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--rose-pop);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .custom-section { margin-bottom: 15px; }
+        .custom-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--black-luxe);
+            margin-bottom: 6px;
+        }
+        .custom-hint { font-weight: 500; color: var(--text-muted); font-size: 0.78rem; }
+
+        .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .variant-pill {
+            padding: 10px 12px;
+            border-radius: 13px;
+            border: 2px solid var(--border-pop);
+            background: #FFFBF5;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.84rem;
+            font-weight: 600;
+        }
+        .variant-pill.selected {
+            background: var(--black-luxe);
+            color: var(--gold-bright);
+            border-color: var(--gold-main);
+            font-weight: 800;
+        }
+
+        .ingredients-interactive { display: flex; flex-wrap: wrap; gap: 8px; }
+        .ing-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 13px;
+            border-radius: 99px;
+            border: 2px solid #BBF7D0;
+            background: #F0FDF4;
+            color: #166534;
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .ing-toggle.removed {
+            background: var(--danger-bg);
+            border-color: #FCA5A5;
+            color: var(--danger-text);
+            text-decoration: line-through;
+        }
+
+        .flavor-toggle {
+            padding: 8px 13px;
+            border-radius: 99px;
+            border: 2px solid var(--border-pop);
+            background: #FFFBF5;
+            color: var(--text-dark);
+            font-size: 0.83rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .flavor-toggle.picked {
+            background: var(--rose-pop);
+            color: white;
+            border-color: var(--rose-pop);
+        }
+
+        .note-input {
+            width: 100%;
+            padding: 10px 13px;
+            border-radius: 12px;
+            border: 2px solid var(--border-pop);
+            font-size: 0.88rem;
+            outline: none;
+            background: white;
+        }
+        .note-input:focus { border-color: var(--rose-pop); }
+
+        .modal-qty-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px dashed var(--border-pop);
+        }
+
+        .qty-stepper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--amber-soft);
+            border: 1.5px solid var(--gold-main);
+            padding: 6px 12px;
+            border-radius: 13px;
+        }
+
+        .qty-stepper button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 8px;
+            background: var(--black-luxe);
+            font-weight: 800;
+            color: var(--gold-bright);
+            cursor: pointer;
+        }
+
+        .btn-confirm-add {
+            flex: 1;
+            padding: 13px 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--rose-pop), var(--rose-hover));
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 520px;
+            background: linear-gradient(135deg, var(--black-luxe) 0%, #27272A 100%);
+            color: var(--gold-bright);
+            border: 2px solid var(--gold-main);
+            border-radius: 18px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 800;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            z-index: 95;
+        }
+        .floating-cart-btn.hidden { display: none; }
+
+        .cart-pill {
+            background: var(--rose-pop);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 0.82rem;
+            margin-left: 6px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-pop);
+            gap: 12px;
+        }
+        .cart-item h4 { font-family: 'Fredoka', sans-serif; font-size: 1rem; color: var(--black-luxe); }
+        .cart-item-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+        .cart-item-removed { font-size: 0.78rem; color: var(--danger-text); font-weight: 700; margin-top: 3px; }
+
+        .checkout-summary-box {
+            background: #FFFBF5;
+            border: 1.5px solid var(--border-pop);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin: 14px 0;
+            font-size: 0.88rem;
+        }
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .summary-line.total {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--black-luxe);
+            border-top: 1.5px dashed var(--gold-main);
+            padding-top: 8px;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #25D366, #16A34A);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.02rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 36px 16px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+        }
+
+        #adminPanelOverlay {
+            position: fixed;
+            inset: 0;
+            background: #F1F5F9;
+            z-index: 200;
+            display: none;
+            flex-direction: row;
+        }
+        #adminPanelOverlay.open { display: flex; }
+
+        .adm-sidebar {
+            width: 260px;
+            background: #0F172A;
+            color: #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #1E293B;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .adm-brand {
+            padding: 20px 18px;
+            border-bottom: 1px solid #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .adm-brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1.5px solid var(--gold-main);
+        }
+        .adm-brand h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            color: var(--gold-bright);
+        }
+        .adm-brand span { font-size: 0.72rem; color: #94A3B8; }
+
+        .adm-nav {
+            padding: 12px 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .adm-nav-btn {
+            width: 100%;
+            text-align: left;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: none;
+            background: transparent;
+            color: #CBD5E1;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.15s;
+        }
+        .adm-nav-btn:hover { background: #1E293B; color: white; }
+        .adm-nav-btn.active {
+            background: linear-gradient(135deg, var(--rose-pop), #BE123C);
+            color: white;
+            font-weight: 700;
+        }
+
+        .adm-badge-count {
+            background: var(--gold-bright);
+            color: #0F172A;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 99px;
+        }
+
+        .adm-sidebar-footer {
+            padding: 14px;
+            border-top: 1px solid #1E293B;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .adm-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .adm-topbar {
+            background: white;
+            padding: 14px 24px;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .adm-content {
+            padding: 24px;
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .adm-tab { display: none; }
+        .adm-tab.active { display: block; }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+        }
+        .kpi-card small { color: #64748B; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; }
+        .kpi-card .kpi-val {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 6px 0 4px;
+        }
+        .kpi-card .kpi-sub { font-size: 0.78rem; color: #16A34A; font-weight: 600; }
+
+        .adm-panel-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+            margin-bottom: 20px;
+        }
+
+        .adm-panel-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .adm-btn {
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: 1px solid #CBD5E1;
+            background: white;
+            color: #0F172A;
+            font-weight: 700;
+            font-size: 0.83rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .adm-btn.primary { background: var(--rose-pop); color: white; border-color: var(--rose-pop); }
+        .adm-btn.dark { background: #0F172A; color: var(--gold-bright); border-color: #0F172A; }
+        .adm-btn.success { background: #16A34A; color: white; border-color: #16A34A; }
+        .adm-btn.danger { background: #DC2626; color: white; border-color: #DC2626; }
+
+        .adm-table-wrap { overflow-x: auto; }
+        table.adm-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        table.adm-table th {
+            text-align: left;
+            padding: 11px 12px;
+            background: #F8FAFC;
+            color: #475569;
+            font-weight: 700;
+            border-bottom: 2px solid #E2E8F0;
+        }
+        table.adm-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid #F1F5F9;
+            vertical-align: middle;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 0.74rem;
+            font-weight: 800;
+        }
+        .st-Pendiente { background: #FEF3C7; color: #B45309; }
+        .st-Confirmado { background: #DBEAFE; color: #1D4ED8; }
+        .st-En-preparación { background: #E0E7FF; color: #4338CA; }
+        .st-Listo-para-entregar { background: #CCFBF1; color: #0F766E; }
+        .st-Completado { background: #DCFCE7; color: #15803D; }
+        .st-Cancelado { background: #FEE2E2; color: #B91C1C; }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+        }
+
+        .switch-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: #F8FAFC;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            margin-bottom: 10px;
+        }
+
+        .adm-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0F172A;
+            color: var(--gold-bright);
+            border: 1.5px solid var(--gold-main);
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            z-index: 350;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+            display: none;
+        }
+
+        @media (max-width: 820px) {
+            #adminPanelOverlay { flex-direction: column; }
+            .adm-sidebar { width: 100%; max-height: 155px; border-right: none; border-bottom: 2px solid #1E293B; }
+            .adm-nav { flex-direction: row; overflow-x: auto; padding: 8px; }
+            .adm-nav-btn { white-space: nowrap; width: auto; }
+            .adm-sidebar-footer { flex-direction: row; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="closed-banner" id="storeClosedBanner">
+        🔴 RESTAURANTE CERRADO EN ESTE MOMENTO — Nuestro horario es: <span id="bannerScheduleText"></span>
+    </div>
+
+    <div class="bg-doodles" id="bgDoodlesWrap" aria-hidden="true">
+        <svg class="doodle" style="top:18%; left:4%; width:95px;" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M14 28h30v14a12 12 0 0 1-12 12H26a12 12 0 0 1-12-12V28z"/>
+            <path d="M44 31h5a6 6 0 0 1 0 12h-5"/>
+            <path d="M22 18c0-4 4-4 4-8M31 18c0-4 4-4 4-8" stroke-linecap="round"/>
+        </svg>
+        <svg class="doodle rose" style="top:34%; right:4%; width:100px;" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3">
+            <path d="M32 56V30"/>
+            <path d="M32 42c-7-2-11-7-10-12 6 0 10 4 10 12z"/>
+            <path d="M32 36c7-2 11-7 10-12-6 0-10 4-10 12z"/>
+            <circle cx="32" cy="19" r="9"/>
+            <path d="M27 19c2-4 8-4 10 0"/>
+        </svg>
+        <svg class="doodle" style="top:65%; left:5%; width:85px; transform:rotate(-25deg);" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5">
+            <ellipse cx="32" cy="32" rx="16" ry="22"/>
+            <path d="M32 10c-5 12 5 32 0 44"/>
+        </svg>
+        <svg class="doodle rose" style="top:78%; right:6%; width:90px;" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M32 8l4 14 14 4-14 4-4 14-4-14-14-4 14-4z"/>
+            <circle cx="14" cy="48" r="3"/>
+            <circle cx="50" cy="14" r="3"/>
+        </svg>
+    </div>
+
+    <header id="publicHeader">
+        <div class="header-sparkles" id="pubSparkles">✨ Cafetería &amp; Cocina al Gusto 🌹</div>
+        <div class="logo-frame">
+            <img id="logoImg" src="" alt="Logotipo Rio Rosa">
+        </div>
+        <h1 id="pubBrandName">Rio Rosa</h1>
+        <div class="tagline" id="pubTagline">Más que un café ☕✨</div>
+        <p class="header-sub" id="pubWelcomeSub">Arma tu platillo quitando los ingredientes que no quieras y pídelo por WhatsApp 📲</p>
+        <div class="header-meta-bar" id="pubMetaBar"></div>
+    </header>
+
+    <div class="promos-strip" id="publicPromosContainer"></div>
+
+    <div class="sticky-nav">
+        <div class="search-box">
+            <span class="search-icon">🔎</span>
+            <input type="text" id="searchInput" placeholder="Busca tu antojo: cappuccino, hamburguesa, pizza, frappe...">
+        </div>
+        <div class="categories-bar" id="categoriesBar"></div>
+    </div>
+
+    <main class="container" id="menuContainer"></main>
+
+    <div style="padding: 0 16px;">
+        <section class="location-card" id="publicLocationSection" aria-label="Ubicación y Contacto">
+            <div class="location-info">
+                <h3>📍 Ubicación y Contacto</h3>
+                <p id="locAddressText">C. 27 #14, entre 16 y 18, Guadalupe, 24460, Seybaplaya, Campeche, México.</p>
+                <div class="location-meta" id="locMetaDetails">
+                    <span>🕒 Lun - Dom: 2:00 PM - 11:00 PM</span>
+                    <span>📱 982 129 2558</span>
+                </div>
+            </div>
+            <a id="locMapsBtn" href="https://maps.app.goo.gl/pQtCKkVW1GEfua2f8" target="_blank" rel="noopener noreferrer" class="btn-maps-gold">
+                🗺️ Cómo llegar
+            </a>
+        </section>
+    </div>
+
+    <footer id="pubFooter">
+        <strong>☕ Rio Rosa — Más que un café 🌹</strong> &bull; C. 27 #14, entre 16 y 18, Guadalupe, 24460, Seybaplaya, Campeche, México. &bull; 📱 982 129 2558
+    </footer>
+
+    <button class="floating-cart-btn hidden" id="floatingCartBtn" onclick="openCart()">
+        <span>🛒 Ver mi pedido <span class="cart-pill" id="cartCount">0</span></span>
+        <span id="cartFloatTotal">$0</span>
+    </button>
+
+    <div class="modal-overlay" id="customModal" onclick="closeModalOutside(event, 'customModal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <div>
+                    <h3 id="custTitle">Producto</h3>
+                    <p class="modal-subtitle" id="custDesc"></p>
+                </div>
+                <button class="btn-close" onclick="closeModal('customModal')">✕</button>
+            </div>
+
+            <div id="custDynamicBody"></div>
+
+            <div class="custom-section">
+                <label class="custom-label">📝 Instrucciones extra <span class="custom-hint">(opcional)</span></label>
+                <input type="text" class="note-input" id="custItemNote" placeholder="Ej. Bien dorado, salsa aparte, sin hielo...">
+            </div>
+
+            <div class="modal-qty-bar">
+                <div class="qty-stepper">
+                    <button onclick="changeModalQty(-1)">-</button>
+                    <strong id="modalQty">1</strong>
+                    <button onclick="changeModalQty(1)">+</button>
+                </div>
+                <button class="btn-confirm-add" onclick="confirmAddToCart()">
+                    Agregar 🛒 &bull; <span id="modalSubtotal">$0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="cartModal" onclick="closeModalOutside(event, 'cartModal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <div>
+                    <h3>🛍️ Tu Pedido</h3>
+                    <p class="modal-subtitle">Revisa tus ingredientes y completa tus datos</p>
+                </div>
+                <button class="btn-close" onclick="closeModal('cartModal')">✕</button>
+            </div>
+
+            <div id="cartItemsList"></div>
+
+            <div class="custom-section" style="margin-top:14px;">
+                <label class="custom-label">👤 Tu Nombre *</label>
+                <input type="text" class="note-input" id="clientName" placeholder="Ej. Ian Vera">
+            </div>
+
+            <div class="custom-section">
+                <label class="custom-label">🛵 Tipo de Servicio *</label>
+                <select class="note-input" id="deliveryType" onchange="updateCheckoutFields()"></select>
+            </div>
+
+            <div class="custom-section" id="addressGroup" style="display: none;">
+                <label class="custom-label">📍 Dirección de entrega *</label>
+                <input type="text" class="note-input" id="clientAddress" placeholder="Calle, número, colonia y referencias">
+            </div>
+
+            <div class="custom-section" id="tableGroup" style="display: none;">
+                <label class="custom-label">🪑 Número de Mesa *</label>
+                <input type="text" class="note-input" id="tableNumber" placeholder="Ej. Mesa 4">
+            </div>
+
+            <div class="custom-section" id="tipGroup" style="display: none;">
+                <label class="custom-label">🤝 Propina para el repartidor ($ MXN)</label>
+                <input type="number" class="note-input" id="driverTip" min="0" step="5" value="0" oninput="renderCartTotals()">
+            </div>
+
+            <div class="custom-section">
+                <label class="custom-label">💳 Método de Pago *</label>
+                <select class="note-input" id="paymentMethod"></select>
+            </div>
+
+            <div class="custom-section">
+                <label class="custom-label">💬 Notas generales <span class="custom-hint">(opcional)</span></label>
+                <input type="text" class="note-input" id="orderNotes" placeholder="Ej. Cubiertos, servilletas, pagaré con billete de $500...">
+            </div>
+
+            <div class="checkout-summary-box" id="checkoutBreakdown"></div>
+
+            <button class="btn-whatsapp" onclick="processAndSendOrder()">
+                📲 Confirmar y enviar pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div id="adminPanelOverlay">
+        <aside class="adm-sidebar">
+            <div class="adm-brand">
+                <img id="admSidebarLogo" src="" alt="Logo">
+                <div>
+                    <h2>Rio Rosa POS</h2>
+                    <span id="fbStatusBadge">● Conectando a Firebase...</span>
+                </div>
+            </div>
+
+            <nav class="adm-nav">
+                <button class="adm-nav-btn active" onclick="switchAdminTab('dashboard', this)">📊 Dashboard</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('pedidos', this)">
+                    <span>🛎️ Pedidos</span>
+                    <span class="adm-badge-count" id="badgePendingCount">0</span>
+                </button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('historial', this)">📚 Historial y Ventas</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('productos', this)">🍔 Productos y Categorías</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('promociones', this)">🏷️ Promociones</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('servicios', this)">🛵 Servicios y Pagos</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('restaurante', this)">🏪 Restaurante y Horarios</button>
+                <button class="adm-nav-btn" onclick="switchAdminTab('apariencia', this)">🎨 Personalización Sitio</button>
+            </nav>
+
+            <div class="adm-sidebar-footer">
+                <button class="adm-btn" style="justify-content:center;" onclick="hideAdminPanel()">👁️ Ver Menú Público</button>
+                <button class="adm-btn danger" style="justify-content:center;" onclick="logoutAdmin()">🚪 Salir del Panel</button>
+            </div>
+        </aside>
+
+        <div class="adm-main">
+            <div class="adm-topbar">
+                <h2 id="admPageTitle" style="font-family:'Fredoka',sans-serif; font-size:1.35rem; color:#0F172A;">Dashboard Principal</h2>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span id="topStoreStatusPill" class="status-pill st-Completado">ABIERTO</span>
+                    <button class="adm-btn dark" onclick="hideAdminPanel()">Volver al Sitio</button>
+                </div>
+            </div>
+
+            <div class="adm-content">
+                <section id="tab-dashboard" class="adm-tab active">
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <small>Ventas de Hoy</small>
+                            <div class="kpi-val" id="kpiDay">$0</div>
+                            <div class="kpi-sub" id="kpiDayComp">Ayer: $0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <small>Ventas de la Semana</small>
+                            <div class="kpi-val" id="kpiWeek">$0</div>
+                            <div class="kpi-sub">Últimos 7 días</div>
+                        </div>
+                        <div class="kpi-card">
+                            <small>Ventas del Mes</small>
+                            <div class="kpi-val" id="kpiMonth">$0</div>
+                            <div class="kpi-sub">Mes en curso</div>
+                        </div>
+                        <div class="kpi-card">
+                            <small>Ticket Promedio</small>
+                            <div class="kpi-val" id="kpiTicket">$0</div>
+                            <div class="kpi-sub" id="kpiOrdersSummary">0 pedidos totales</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+                        <div class="kpi-card">
+                            <small>Total Pedidos</small>
+                            <div class="kpi-val" id="kpiTotalOrders">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <small>Pedidos Pendientes</small>
+                            <div class="kpi-val" style="color:#D97706;" id="kpiPendingOrders">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <small>Pedidos Completados</small>
+                            <div class="kpi-val" style="color:#16A34A;" id="kpiCompletedOrders">0</div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap:20px;">
+                        <div class="adm-panel-card">
+                            <h3 style="margin-bottom:14px;">📈 Ventas por Día (Últimos 7 días)</h3>
+                            <canvas id="salesChart" height="190"></canvas>
+                        </div>
+                        <div class="adm-panel-card">
+                            <h3 style="margin-bottom:14px;">🏆 Productos Más Vendidos</h3>
+                            <div id="topProductsList"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-pedidos" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <div class="adm-panel-header">
+                            <h3>🛎️ Pedidos Recibidos</h3>
+                            <select id="filterOrderStatus" class="note-input" style="max-width:220px;" onchange="renderAdminOrders()">
+                                <option value="Todos">Todos los estados</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Confirmado">Confirmado</option>
+                                <option value="En preparación">En preparación</option>
+                                <option value="Listo para entregar">Listo para entregar</option>
+                                <option value="Completado">Completado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div id="adminOrdersCards" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:16px;"></div>
+                    </div>
+                </section>
+
+                <section id="tab-historial" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <div class="adm-panel-header">
+                            <h3>📚 Historial Permanente de Ventas</h3>
+                            <button class="adm-btn success" onclick="exportSalesCSV()">📥 Exportar Reporte CSV</button>
+                        </div>
+                        <div class="form-grid-2" style="margin-bottom:16px;">
+                            <select id="histPeriod" class="note-input" onchange="renderSalesHistory()">
+                                <option value="all">Todo el historial</option>
+                                <option value="day">Hoy</option>
+                                <option value="week">Esta semana</option>
+                                <option value="month">Este mes</option>
+                            </select>
+                            <input type="date" id="histDate" class="note-input" onchange="renderSalesHistory()">
+                            <input type="text" id="histSearch" class="note-input" placeholder="Buscar # pedido o cliente..." oninput="renderSalesHistory()">
+                            <select id="histPayFilter" class="note-input" onchange="renderSalesHistory()">
+                                <option value="Todos">Todos los métodos de pago</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Transferencia">Transferencia</option>
+                                <option value="Tarjeta">Tarjeta</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:14px; font-weight:800; color:#0F172A;">
+                            Registros encontrados: <span id="histCount">0</span> &bull; Total del periodo: <span id="histTotalAmount" style="color:#16A34A;">$0</span>
+                        </div>
+                        <div class="adm-table-wrap">
+                            <table class="adm-table">
+                                <thead>
+                                    <tr>
+                                        <th># Pedido</th>
+                                        <th>Fecha y Hora</th>
+                                        <th>Cliente</th>
+                                        <th>Productos</th>
+                                        <th>Servicio</th>
+                                        <th>Pago</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="salesHistoryBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-productos" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <div class="adm-panel-header">
+                            <h3>🍔 Catálogo de Productos</h3>
+                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                <button class="adm-btn dark" onclick="openCategoryManager()">📂 Categorías</button>
+                                <button class="adm-btn primary" onclick="openProductEditor(null)">+ Nuevo Producto</button>
+                            </div>
+                        </div>
+                        <div class="form-grid-2" style="margin-bottom:16px;">
+                            <input type="text" id="admProdSearch" class="note-input" placeholder="Buscar producto..." oninput="renderAdminProducts()">
+                            <select id="admProdCatFilter" class="note-input" onchange="renderAdminProducts()"></select>
+                        </div>
+                        <div class="adm-table-wrap">
+                            <table class="adm-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Producto</th>
+                                        <th>Categoría</th>
+                                        <th>Precio</th>
+                                        <th>Disponibilidad</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admProductsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-promociones" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <div class="adm-panel-header">
+                            <h3>🏷️ Promociones y Descuentos</h3>
+                            <button class="adm-btn primary" onclick="openPromoModal(null)">+ Nueva Promoción</button>
+                        </div>
+                        <div id="adminPromosList" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:16px;"></div>
+                    </div>
+                </section>
+
+                <section id="tab-servicios" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <h3 style="margin-bottom:16px;">🛵 Configuración de Servicios y Métodos de Pago</h3>
+                        <div class="switch-row">
+                            <div>
+                                <strong>Servicio a Domicilio</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Habilita envíos y costo de reparto</div>
+                            </div>
+                            <input type="checkbox" id="srvDeliveryEnabled" style="width:20px; height:20px;">
+                        </div>
+                        <div class="form-grid-2" style="margin-bottom:16px;">
+                            <div>
+                                <label class="custom-label">Costo de Envío ($ MXN)</label>
+                                <input type="number" id="srvDeliveryCost" class="note-input" min="0">
+                            </div>
+                            <div>
+                                <label class="custom-label">Propina Sugerida Repartidor ($ MXN)</label>
+                                <input type="number" id="srvSuggestedTip" class="note-input" min="0">
+                            </div>
+                        </div>
+
+                        <div class="switch-row">
+                            <div>
+                                <strong>Comer en el Establecimiento</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Permite pedir desde mesa en cafetería</div>
+                            </div>
+                            <input type="checkbox" id="srvDineInEnabled" style="width:20px; height:20px;">
+                        </div>
+                        <div class="switch-row">
+                            <div>
+                                <strong>Solicitar Número de Mesa</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Pide el número de mesa al elegir comer en local</div>
+                            </div>
+                            <input type="checkbox" id="srvTableNumberEnabled" style="width:20px; height:20px;">
+                        </div>
+                        <div class="switch-row">
+                            <div>
+                                <strong>Pasar a Recoger en Sucursal</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Permite pedidos para llevar</div>
+                            </div>
+                            <input type="checkbox" id="srvPickupEnabled" style="width:20px; height:20px;">
+                        </div>
+
+                        <h4 style="margin:20px 0 10px;">💳 Métodos de Pago Activos</h4>
+                        <div class="switch-row"><strong>💵 Efectivo</strong><input type="checkbox" id="payCash" style="width:20px; height:20px;"></div>
+                        <div class="switch-row"><strong>🏦 Transferencia Bancaria</strong><input type="checkbox" id="payTransfer" style="width:20px; height:20px;"></div>
+                        <div class="switch-row"><strong>💳 Tarjeta (Terminal)</strong><input type="checkbox" id="payCard" style="width:20px; height:20px;"></div>
+
+                        <button class="adm-btn primary" style="margin-top:12px;" onclick="saveServicesAndPayments()">💾 Guardar Servicios y Pagos</button>
+                    </div>
+                </section>
+
+                <section id="tab-restaurante" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <h3 style="margin-bottom:16px;">🏪 Información General y Estado del Local</h3>
+                        <div class="switch-row" style="background:#FEF2F2; border-color:#FECACA;">
+                            <div>
+                                <strong id="cfgOpenLabel" style="font-size:1rem;">🟢 RESTAURANTE ABIERTO</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Si lo apagas, se mostrará el aviso de CERRADO en el menú público</div>
+                            </div>
+                            <input type="checkbox" id="cfgIsOpen" style="width:24px; height:24px;">
+                        </div>
+                        <div class="switch-row">
+                            <div>
+                                <strong>Bloquear pedidos cuando esté cerrado</strong>
+                                <div style="font-size:0.8rem; color:#64748B;">Impide enviar pedidos mientras el interruptor esté en CERRADO</div>
+                            </div>
+                            <input type="checkbox" id="cfgBlockWhenClosed" style="width:20px; height:20px;">
+                        </div>
+
+                        <div class="form-grid-2" style="margin-top:14px;">
+                            <div>
+                                <label class="custom-label">Nombre Comercial</label>
+                                <input type="text" id="cfgName" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Eslogan</label>
+                                <input type="text" id="cfgTagline" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Número de WhatsApp (con lada 521...)</label>
+                                <input type="text" id="cfgWhatsapp" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Teléfono Visible</label>
+                                <input type="text" id="cfgPhone" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Dirección Exacta</label>
+                                <input type="text" id="cfgAddress" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Enlace de Google Maps</label>
+                                <input type="url" id="cfgMapsUrl" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Horarios de Atención</label>
+                                <input type="text" id="cfgHours" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Días de Servicio</label>
+                                <input type="text" id="cfgDays" class="note-input">
+                            </div>
+                            <div>
+                                <label class="custom-label">Redes Sociales</label>
+                                <input type="text" id="cfgSocial" class="note-input">
+                            </div>
+                        </div>
+                        <div style="margin-top:12px;">
+                            <label class="custom-label">Descripción del Restaurante</label>
+                            <textarea id="cfgDesc" class="note-input" rows="2"></textarea>
+                        </div>
+
+                        <button class="adm-btn primary" style="margin-top:16px;" onclick="saveRestaurantConfig()">💾 Guardar Configuración</button>
+                    </div>
+                </section>
+
+                <section id="tab-apariencia" class="adm-tab">
+                    <div class="adm-panel-card">
+                        <h3 style="margin-bottom:16px;">🎨 Personalización Visual y Textos del Sitio</h3>
+                        <div class="form-grid-2">
+                            <div>
+                                <label class="custom-label">Color Principal (Botones y Acentos)</label>
+                                <input type="color" id="uiPrimaryColor" style="width:100%; height:44px; border:none; border-radius:10px; cursor:pointer;">
+                            </div>
+                            <div>
+                                <label class="custom-label">Color Secundario (Bordes y Detalles)</label>
+                                <input type="color" id="uiSecondaryColor" style="width:100%; height:44px; border:none; border-radius:10px; cursor:pointer;">
+                            </div>
+                            <div>
+                                <label class="custom-label">Color Oscuro (Cabecera y Precios)</label>
+                                <input type="color" id="uiDarkColor" style="width:100%; height:44px; border:none; border-radius:10px; cursor:pointer;">
+                            </div>
+                        </div>
+                        <div style="margin-top:14px;">
+                            <label class="custom-label">Etiqueta Superior de Bienvenida</label>
+                            <input type="text" id="uiSparklesText" class="note-input">
+                        </div>
+                        <div style="margin-top:14px;">
+                            <label class="custom-label">Subtítulo / Mensaje de Bienvenida</label>
+                            <input type="text" id="uiWelcomeText" class="note-input">
+                        </div>
+                        <div class="switch-row" style="margin-top:14px;">
+                            <strong>Mostrar dibujitos decorativos de fondo</strong>
+                            <input type="checkbox" id="uiShowDoodles" style="width:20px; height:20px;">
+                        </div>
+                        <button class="adm-btn primary" style="margin-top:14px;" onclick="saveAppearanceConfig()">💾 Aplicar Diseño al Menú Público</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="prodEditorModal" style="z-index:260;">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 id="prodEditorTitle">Editar Producto</h3>
+                <button class="btn-close" onclick="closeModal('prodEditorModal')">✕</button>
+            </div>
+            <input type="hidden" id="editProdId">
+            <div class="custom-section">
+                <label class="custom-label">Nombre del Producto *</label>
+                <input type="text" id="editProdName" class="note-input">
+            </div>
+            <div class="form-grid-2">
+                <div class="custom-section">
+                    <label class="custom-label">Categoría *</label>
+                    <select id="editProdCategory" class="note-input"></select>
+                </div>
+                <div class="custom-section">
+                    <label class="custom-label">Precio Base ($ MXN) *</label>
+                    <input type="number" id="editProdPrice" class="note-input" min="0">
+                </div>
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Orden de aparición (número)</label>
+                <input type="number" id="editProdOrder" class="note-input" min="1" value="1">
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Descripción</label>
+                <textarea id="editProdDesc" class="note-input" rows="2"></textarea>
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Ingredientes desglosados <span class="custom-hint">(separados por coma)</span></label>
+                <input type="text" id="editProdIngredients" class="note-input" placeholder="Ej. Carne de res, Tocino, Queso, Cebolla">
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Variantes opcionales <span class="custom-hint">(Formato: Caliente:65, Frío:75)</span></label>
+                <input type="text" id="editProdVariants" class="note-input" placeholder="Ej. Individual:119, Grande:229">
+            </div>
+            <div class="switch-row"><strong>⭐ Producto Destacado</strong><input type="checkbox" id="editProdFeatured"></div>
+            <div class="switch-row"><strong>🚫 Marcar como AGOTADO</strong><input type="checkbox" id="editProdSoldOut"></div>
+            <div class="switch-row"><strong>👁️ Producto Activo (visible)</strong><input type="checkbox" id="editProdActive" checked></div>
+
+            <button class="btn-confirm-add" style="width:100%; margin-top:10px;" onclick="saveProductFromModal()">
+                💾 Guardar Producto
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="catManagerModal" style="z-index:260;">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3>📂 Categorías del Menú</h3>
+                <button class="btn-close" onclick="closeModal('catManagerModal')">✕</button>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:14px;">
+                <input type="text" id="newCatName" class="note-input" placeholder="Nueva categoría...">
+                <button class="adm-btn primary" onclick="addNewCategory()">+ Crear</button>
+            </div>
+            <div id="catManagerList"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="promoModal" style="z-index:260;">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 id="promoModalTitle">Nueva Promoción</h3>
+                <button class="btn-close" onclick="closeModal('promoModal')">✕</button>
+            </div>
+            <input type="hidden" id="editPromoId">
+            <div class="custom-section">
+                <label class="custom-label">Título de la Promoción *</label>
+                <input type="text" id="promoTitle" class="note-input" placeholder="Ej. 2x1 en Cappuccinos">
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Descripción</label>
+                <input type="text" id="promoDesc" class="note-input" placeholder="Válido de lunes a miércoles">
+            </div>
+            <div class="custom-section">
+                <label class="custom-label">Etiqueta de Descuento</label>
+                <input type="text" id="promoBadge" class="note-input" placeholder="Ej. 20% OFF o 2x1">
+            </div>
+            <div class="form-grid-2">
+                <div class="custom-section">
+                    <label class="custom-label">Fecha Inicio</label>
+                    <input type="date" id="promoStart" class="note-input">
+                </div>
+                <div class="custom-section">
+                    <label class="custom-label">Fecha Finalización</label>
+                    <input type="date" id="promoEnd" class="note-input">
+                </div>
+            </div>
+            <div class="switch-row"><strong>Promoción Activa</strong><input type="checkbox" id="promoActive" checked></div>
+            <button class="btn-confirm-add" style="width:100%; margin-top:10px;" onclick="savePromoFromModal()">💾 Guardar Promoción</button>
+        </div>
+    </div>
+
+    <div class="adm-toast" id="admToast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc,
+    addDoc, onSnapshot, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAH7r-pH3gUVKGBfWJrronM6vZGNOhMITg",
+  authDomain: "rio-rosa-75f5b.firebaseapp.com",
+  projectId: "rio-rosa-75f5b",
+  storageBucket: "rio-rosa-75f5b.firebasestorage.app",
+  messagingSenderId: "1072300212588",
+  appId: "1:1072300212588:web:bdb06f9a81bc7d1f9b3349",
+  measurementId: "G-NKGERDW015"
+};
+
+let app = null, auth = null, db = null, firebaseReady = false;
+try {
+    if (firebaseConfig && firebaseConfig.apiKey && firebaseConfig.projectId) {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        firebaseReady = true;
+    }
+} catch (e) {
+    console.error("Error inicializando Firebase:", e);
+}
+
+const GALERIA_IMAGENES = {
+    logo: "86677.jpeg",
+    cappuccino: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80",
+    expresso: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=800&q=80",
+    cafe_americano: "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=800&q=80",
+    cappuccino_caramel: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=800&q=80",
+    cappuccino_vainilla: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80",
+    latte: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=800&q=80",
+    latte_caramel: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
+    latte_vainilla: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=800&q=80",
+    moka: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=800&q=80",
+    chocolate: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=800&q=80",
+    cheesecake: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80",
+    pastel_imposible: "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80",
+    pastel_chocolate: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+    copa_helado: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80",
+    rosa_burger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+    arrachera_suprema: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80",
+    sirloin_burger: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80",
+    pastor_burger: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80",
+    cheese_burger: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80",
+    honolulu_burger: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80",
+    tociburger: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=80",
+    aros_burger: "https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?auto=format&fit=crop&w=800&q=80",
+    rio_burger: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=80",
+    chicken_burger: "https://images.unsplash.com/photo-1615297928064-24977384d0da?auto=format&fit=crop&w=800&q=80",
+    alita_botanera: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80",
+    alita_jumbo: "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80",
+    boneless: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80",
+    pizza_4x4: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
+    pizza_arrachera: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+    pizza_pastor: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80",
+    pizza_mexicana: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80",
+    pizza_hawaiana: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=80",
+    pizza_champinon: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+    pizza_pepperoni: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80",
+    costillas_bbq: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    rib_eye: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80",
+    new_york: "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80",
+    t_bone: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=800&q=80",
+    sirloin_corte: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=80",
+    arrachera_corte: "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?auto=format&fit=crop&w=800&q=80",
+    pechuga_plancha: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?auto=format&fit=crop&w=800&q=80",
+    pastor_aleman: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?auto=format&fit=crop&w=800&q=80",
+    san_bernardo: "https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=800&q=80",
+    pizza_dog: "https://images.unsplash.com/photo-1541214113241-21578d2d9b62?auto=format&fit=crop&w=800&q=80",
+    perro_malix: "https://images.unsplash.com/photo-1627054248949-21f77275a15f?auto=format&fit=crop&w=800&q=80",
+    sushi_rollos: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
+    pasta_alfredo: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=800&q=80",
+    pasta_carbonara: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800&q=80",
+    pasta_bolonesa: "https://images.unsplash.com/photo-1622973536968-3ead9e780960?auto=format&fit=crop&w=800&q=80",
+    platon_amigos: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=800&q=80",
+    nachos_pastor: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=800&q=80",
+    queso_fundido: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+    vampiros: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+    ensalada_chary: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+    papas_francesa: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+    papas_gajo: "https://images.unsplash.com/photo-1623238913973-21e45cced554?auto=format&fit=crop&w=800&q=80",
+    pan_ajo: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80",
+    aros_cebolla: "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80",
+    guacamole: "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=80",
+    dedos_queso: "https://images.unsplash.com/photo-1531749668029-2db88e4276c7?auto=format&fit=crop&w=800&q=80",
+    extintor_soda: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+    sodas_italianas: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80",
+    perlas_explosivas: "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=800&q=80",
+    icee: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80",
+    fresas_crema: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
+    frappes: "https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=800&q=80",
+    limonada_sabor: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+    sangria_preparada: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=800&q=80",
+    sangria: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
+    agua_mineral_preparada: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+    agua_mineral: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
+    coca_cola: "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=800&q=80",
+    coca_zero: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80",
+    pepsi: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=800&q=80",
+    pepsi_black: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=800&q=80",
+    refresco_sabor: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&w=800&q=80",
+    arizona: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80",
+    rellenables: "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?auto=format&fit=crop&w=800&q=80",
+    agua_natural: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80",
+    juguito: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=80"
+};
+
+const SECRET_ADMIN_COMMAND = "/adminriorosa1928";
+
+const DEFAULT_SITE_CONFIG = {
+    restaurante: "Rio Rosa",
+    eslogan: "Más que un café ☕✨",
+    whatsapp: "5219821292558",
+    telefonoVisible: "982 129 2558",
+    direccion: "C. 27 #14, entre 16 y 18, Guadalupe, 24460, Seybaplaya, Campeche, México.",
+    googleMapsUrl: "https://maps.app.goo.gl/pQtCKkVW1GEfua2f8",
+    horarios: "Lun - Dom: 2:00 PM - 11:00 PM",
+    diasServicio: "Lunes a Domingo",
+    redes: "@riorosacafe",
+    descripcion: "Cafetería y cocina de especialidad.",
+    abierto: true,
+    bloquearSiCerrado: true,
+    categoriasLista: [
+        "Cafés y Postres",
+        "Hamburguesas",
+        "Alitas y Boneless",
+        "Pizzas",
+        "Cortes",
+        "Hotdogs",
+        "Sushi y Pastas",
+        "Entradas y Ensaladas",
+        "Especiales y Frappés",
+        "Bebidas"
+    ],
+    servicios: {
+        domicilioActivo: true,
+        costoEnvio: 0,
+        propinaSugerida: 15,
+        comerEnLocalActivo: true,
+        pedirMesa: true,
+        recogerActivo: true
+    },
+    pagos: {
+        efectivo: true,
+        transferencia: true,
+        tarjeta: true
+    },
+    apariencia: {
+        primaryColor: "#E11D48",
+        secondaryColor: "#E5A93B",
+        darkColor: "#0D0D10",
+        sparklesText: "✨ Cafetería & Cocina al Gusto 🌹",
+        welcomeText: "Arma tu platillo quitando los ingredientes que no quieras y pídelo por WhatsApp 📲",
+        showDoodles: true
+    }
+};
+
+const INITIAL_PRODUCTS = [
+    { id: "caf-1", orden: 1, categoria: "Cafés y Postres", nombre: "Cappuccino", destacado: true, agotado: false, activo: true, descripcion: "Clásico cappuccino cremoso preparado con espresso y leche vaporizada.", precio: 65, variantes: [{ nombre: "Caliente", precio: 65 }, { nombre: "Frío", precio: 75 }], ingredientes: ["Canela en polvo", "Espuma de leche", "Azúcar / Endulzante"], imgKey: "cappuccino" },
+    { id: "caf-2", orden: 2, categoria: "Cafés y Postres", nombre: "Expresso", destacado: false, agotado: false, activo: true, descripcion: "Shot concentrado de café espresso caliente.", precio: 40, ingredientes: [], imgKey: "expresso" },
+    { id: "caf-3", orden: 3, categoria: "Cafés y Postres", nombre: "Café Americano", destacado: false, agotado: false, activo: true, descripcion: "Café americano caliente recién filtrado.", precio: 49, ingredientes: [], imgKey: "cafe_americano" },
+    { id: "caf-4", orden: 4, categoria: "Cafés y Postres", nombre: "Cappuccino Caramel", destacado: false, agotado: false, activo: true, descripcion: "Cappuccino cremoso con jarabe dulce de caramelo.", precio: 69, variantes: [{ nombre: "Caliente", precio: 69 }, { nombre: "Frío", precio: 79 }], ingredientes: ["Jarabe de caramelo", "Canela en polvo", "Espuma de leche"], imgKey: "cappuccino_caramel" },
+    { id: "caf-5", orden: 5, categoria: "Cafés y Postres", nombre: "Cappuccino Vainilla", destacado: false, agotado: false, activo: true, descripcion: "Cappuccino aromatizado con esencia de vainilla.", precio: 69, variantes: [{ nombre: "Caliente", precio: 69 }, { nombre: "Frío", precio: 79 }], ingredientes: ["Jarabe de vainilla", "Canela en polvo", "Espuma de leche"], imgKey: "cappuccino_vainilla" },
+    { id: "caf-6", orden: 6, categoria: "Cafés y Postres", nombre: "Latte", destacado: false, agotado: false, activo: true, descripcion: "Espresso suave con abundante leche vaporizada.", precio: 60, variantes: [{ nombre: "Caliente", precio: 60 }, { nombre: "Frío", precio: 75 }], ingredientes: ["Leche entera", "Espuma ligera"], imgKey: "latte" },
+    { id: "caf-7", orden: 7, categoria: "Cafés y Postres", nombre: "Latte Caramel", destacado: false, agotado: false, activo: true, descripcion: "Latte con un toque dulce de caramelo.", precio: 69, variantes: [{ nombre: "Caliente", precio: 69 }, { nombre: "Frío", precio: 79 }], ingredientes: ["Jarabe de caramelo", "Leche"], imgKey: "latte_caramel" },
+    { id: "caf-8", orden: 8, categoria: "Cafés y Postres", nombre: "Latte Vainilla", destacado: false, agotado: false, activo: true, descripcion: "Latte aromático con vainilla.", precio: 69, variantes: [{ nombre: "Caliente", precio: 69 }, { nombre: "Frío", precio: 79 }], ingredientes: ["Jarabe de vainilla", "Leche"], imgKey: "latte_vainilla" },
+    { id: "caf-9", orden: 9, categoria: "Cafés y Postres", nombre: "Moka", destacado: false, agotado: false, activo: true, descripcion: "Mezcla equilibrada de espresso, cacao y leche.", precio: 69, variantes: [{ nombre: "Caliente", precio: 69 }, { nombre: "Frío", precio: 79 }], ingredientes: ["Chocolate / Cacao", "Crema / Espuma"], imgKey: "moka" },
+    { id: "caf-10", orden: 10, categoria: "Cafés y Postres", nombre: "Chocolate", destacado: false, agotado: false, activo: true, descripcion: "Bebida cremosa de chocolate tradicional.", precio: 50, variantes: [{ nombre: "Caliente", precio: 50 }, { nombre: "Frío", precio: 59 }], ingredientes: ["Canela", "Espuma de leche"], imgKey: "chocolate" },
+    { id: "pos-1", orden: 11, categoria: "Cafés y Postres", nombre: "Cheesecake de Zarzamora", destacado: false, agotado: false, activo: true, descripcion: "Rebanada cremosa con mermelada artesanal de zarzamora.", precio: 59, ingredientes: ["Cobertura de zarzamora", "Crema batida"], imgKey: "cheesecake" },
+    { id: "pos-2", orden: 12, categoria: "Cafés y Postres", nombre: "Pastel Imposible", destacado: false, agotado: false, activo: true, descripcion: "Clásico chocoflan casero bañado en cajeta/caramelo.", precio: 49, ingredientes: ["Caramelo líquido"], imgKey: "pastel_imposible" },
+    { id: "pos-3", orden: 13, categoria: "Cafés y Postres", nombre: "Pastel de Chocolate", destacado: false, agotado: false, activo: true, descripcion: "Rebanada de pastel húmedo de chocolate.", precio: 69, ingredientes: ["Betún de chocolate"], imgKey: "pastel_chocolate" },
+    { id: "pos-4", orden: 14, categoria: "Cafés y Postres", nombre: "Copa de Helado", destacado: false, agotado: false, activo: true, descripcion: "Elige el sabor de tu copa de helado.", precio: 59, variantes: [{ nombre: "Vainilla", precio: 59 }, { nombre: "Chocolate", precio: 59 }, { nombre: "Fresa", precio: 59 }, { nombre: "Napolitano", precio: 59 }], ingredientes: ["Jarabe de chocolate", "Crema batida"], imgKey: "copa_helado" },
+
+    { id: "ham-1", orden: 15, categoria: "Hamburguesas", nombre: "Rosa Burger", destacado: true, agotado: false, activo: true, descripcion: "Nuestra hamburguesa especial de la casa acompañada con papas a la francesa.", precio: 149, ingredientes: ["Doble carne de res", "Tocino", "Queso amarillo", "Cebolla morada", "Tomate", "Lechuga", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "rosa_burger" },
+    { id: "ham-2", orden: 16, categoria: "Hamburguesas", nombre: "Arrachera Suprema", destacado: true, agotado: false, activo: true, descripcion: "Corte de arrachera con guacamole y tocino, acompañada con papas a la francesa.", precio: 189, ingredientes: ["Carne de arrachera", "Queso amarillo", "Tocino", "Cebolla caramelizada", "Guacamole", "Tomate", "Lechuga", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "arrachera_suprema" },
+    { id: "ham-3", orden: 17, categoria: "Hamburguesas", nombre: "Sirloin Burger", destacado: false, agotado: false, activo: true, descripcion: "Hamburguesa jugosa de Sirloin acompañada con papas a la francesa.", precio: 159, ingredientes: ["Carne Sirloin", "Queso amarillo", "Tocino", "Cebolla morada", "Tomate", "Lechuga", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "sirloin_burger" },
+    { id: "ham-4", orden: 18, categoria: "Hamburguesas", nombre: "Pastor Burger", destacado: false, agotado: false, activo: true, descripcion: "Con nuestra carne al pastor y piña, acompañada con papas a la francesa.", precio: 169, ingredientes: ["Carne al pastor", "Piña", "Queso mozzarella", "Cebolla morada", "Tomate", "Lechuga", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "pastor_burger" },
+    { id: "ham-5", orden: 19, categoria: "Hamburguesas", nombre: "Cheese Burger", destacado: false, agotado: false, activo: true, descripcion: "Hamburguesa con tocino bañada en queso cheddar y papas a la francesa.", precio: 149, ingredientes: ["Carne de res", "Tocino", "Queso amarillo", "Baño de queso cheddar", "Cebolla morada", "Lechuga", "Tomate", "Pepinillos", "Papas a la francesa"], imgKey: "cheese_burger" },
+    { id: "ham-6", orden: 20, categoria: "Hamburguesas", nombre: "Honolulu", destacado: false, agotado: false, activo: true, descripcion: "Jugosa hamburguesa tropical con jamón y piña caramelizada.", precio: 130, ingredientes: ["Carne de res", "Jamón", "Queso amarillo", "Piña caramelizada", "Lechuga", "Tomate", "Cebolla morada", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "honolulu_burger" },
+    { id: "ham-7", orden: 21, categoria: "Hamburguesas", nombre: "Tociburger", destacado: false, agotado: false, activo: true, descripcion: "Hamburguesa clásica con extra tocino crujiente.", precio: 120, ingredientes: ["Carne de res", "Tocino crujiente", "Queso amarillo", "Lechuga", "Tomate", "Cebolla morada", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "tociburger" },
+    { id: "ham-8", orden: 22, categoria: "Hamburguesas", nombre: "Aros Burger", destacado: false, agotado: false, activo: true, descripcion: "Hamburguesa coronada con aros de cebolla empanizados.", precio: 120, ingredientes: ["Carne de res", "Aros de cebolla empanizados", "Queso amarillo", "Lechuga", "Tomate", "Pepinillos", "Papas a la francesa"], imgKey: "aros_burger" },
+    { id: "ham-9", orden: 23, categoria: "Hamburguesas", nombre: "Rio Burger", destacado: false, agotado: false, activo: true, descripcion: "Nuestra hamburguesa clásica de res con papas a la francesa.", precio: 99, ingredientes: ["Carne de res", "Queso amarillo", "Tomate", "Cebolla morada", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "rio_burger" },
+    { id: "ham-10", orden: 24, categoria: "Hamburguesas", nombre: "Chicken Burger", destacado: false, agotado: false, activo: true, descripcion: "Hamburguesa de pollo empanizado crujiente con papas a la francesa.", precio: 129, ingredientes: ["Pollo empanizado", "Queso amarillo", "Lechuga", "Tomate", "Cebolla", "Pepinillos", "Aderezo", "Papas a la francesa"], imgKey: "chicken_burger" },
+
+    { id: "ali-1", orden: 25, categoria: "Alitas y Boneless", nombre: "Alita Botanera (10 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Puedes combinar hasta 2 salsas. Acompañadas con guarnición.", precio: 159, elegirSabores: { titulo: "Elige tus salsas (máximo 2)", max: 2, opciones: ["Mango Habanero", "BBQ Picante", "Búfalo", "Pelón Pelo Rico", "BBQ"] }, ingredientes: ["Papas a la francesa", "Aderezo Ranch", "Palitos de zanahoria", "Palitos de pepino"], imgKey: "alita_botanera" },
+    { id: "ali-2", orden: 26, categoria: "Alitas y Boneless", nombre: "Alita Jumbo (1 kg)", destacado: false, agotado: false, activo: true, descripcion: "Orden grande de 1 kg. Puedes combinar hasta 2 salsas.", precio: 249, elegirSabores: { titulo: "Elige tus salsas (máximo 2)", max: 2, opciones: ["Mango Habanero", "BBQ Picante", "Búfalo", "Pelón Pelo Rico", "BBQ"] }, ingredientes: ["Papas a la francesa", "Aderezo Ranch", "Palitos de zanahoria", "Palitos de pepino"], imgKey: "alita_jumbo" },
+    { id: "ali-3", orden: 27, categoria: "Alitas y Boneless", nombre: "Boneless (12 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Trozos de pechuga empanizados. Puedes combinar hasta 2 salsas.", precio: 169, elegirSabores: { titulo: "Elige tus salsas (máximo 2)", max: 2, opciones: ["Mango Habanero", "BBQ Picante", "Búfalo", "Pelón Pelo Rico", "BBQ"] }, ingredientes: ["Papas a la francesa", "Aderezo Ranch", "Palitos de zanahoria", "Palitos de pepino"], imgKey: "boneless" },
+
+    { id: "piz-1", orden: 28, categoria: "Pizzas", nombre: "Pizza 4 x 4 (8 Rebanadas)", destacado: true, agotado: false, activo: true, descripcion: "Ármala a tu gusto: selecciona hasta 4 de nuestras especialidades.", precio: 299, elegirSabores: { titulo: "Elige hasta 4 especialidades", max: 4, opciones: ["Arrachera", "Pastor", "Mexicana", "Hawaiana", "Champiñón", "Pepperoni"] }, ingredientes: ["Queso mozzarella"], imgKey: "pizza_4x4" },
+    { id: "piz-2", orden: 29, categoria: "Pizzas", nombre: "Pizza de Arrachera", destacado: false, agotado: false, activo: true, descripcion: "Especialidad de arrachera con vegetales frescos.", precio: 159, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 159 }, { nombre: "Grande (8 rebanadas)", precio: 279 }], ingredientes: ["Arrachera", "Cebolla morada", "Pimiento morrón", "Chile jalapeño", "Queso mozzarella"], imgKey: "pizza_arrachera" },
+    { id: "piz-3", orden: 30, categoria: "Pizzas", nombre: "Pizza de Pastor", destacado: false, agotado: false, activo: true, descripcion: "Especialidad al pastor con piña dulce.", precio: 129, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 129 }, { nombre: "Grande (8 rebanadas)", precio: 259 }], ingredientes: ["Carne al pastor", "Cebolla morada", "Piña", "Queso mozzarella"], imgKey: "pizza_pastor" },
+    { id: "piz-4", orden: 31, categoria: "Pizzas", nombre: "Pizza Mexicana", destacado: false, agotado: false, activo: true, descripcion: "Combinación tradicional mexicana.", precio: 129, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 129 }, { nombre: "Grande (8 rebanadas)", precio: 259 }], ingredientes: ["Chorizo", "Pimiento morrón", "Champiñones", "Chile jalapeño", "Queso mozzarella"], imgKey: "pizza_mexicana" },
+    { id: "piz-5", orden: 32, categoria: "Pizzas", nombre: "Pizza Hawaiana", destacado: false, agotado: false, activo: true, descripcion: "La favorita dulce y salada.", precio: 119, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 119 }, { nombre: "Grande (8 rebanadas)", precio: 229 }], ingredientes: ["Jamón", "Piña", "Queso mozzarella"], imgKey: "pizza_hawaiana" },
+    { id: "piz-6", orden: 33, categoria: "Pizzas", nombre: "Pizza de Champiñón", destacado: false, agotado: false, activo: true, descripcion: "Clásica de champiñones rebanados.", precio: 110, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 110 }, { nombre: "Grande (8 rebanadas)", precio: 160 }], ingredientes: ["Champiñones", "Queso mozzarella"], imgKey: "pizza_champinon" },
+    { id: "piz-7", orden: 34, categoria: "Pizzas", nombre: "Pizza de Pepperoni", destacado: false, agotado: false, activo: true, descripcion: "Clásica de pepperoni dorado.", precio: 110, variantes: [{ nombre: "Individual (4 rebanadas)", precio: 110 }, { nombre: "Grande (8 rebanadas)", precio: 160 }], ingredientes: ["Pepperoni", "Queso mozzarella"], imgKey: "pizza_pepperoni" },
+
+    { id: "cor-1", orden: 35, categoria: "Cortes", nombre: "Costillas a la BBQ (680 gr)", destacado: true, agotado: false, activo: true, descripcion: "Costillas de cerdo importado bañadas en salsa a elección.", precio: 299, variantes: [{ nombre: "Salsa BBQ", precio: 299 }, { nombre: "Salsa BBQ Picante", precio: 299 }], ingredientes: ["Papas a la francesa"], imgKey: "costillas_bbq" },
+    { id: "cor-2", orden: 36, categoria: "Cortes", nombre: "Rib-Eye (350 gr)", destacado: false, agotado: false, activo: true, descripcion: "Corte fino a la parrilla con guarniciones.", precio: 349, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "rib_eye" },
+    { id: "cor-3", orden: 37, categoria: "Cortes", nombre: "New York (350 gr)", destacado: false, agotado: false, activo: true, descripcion: "Corte jugoso a la parrilla con guarniciones.", precio: 349, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "new_york" },
+    { id: "cor-4", orden: 38, categoria: "Cortes", nombre: "T-Bone (350 gr)", destacado: false, agotado: false, activo: true, descripcion: "Corte clásico con hueso a la parrilla.", precio: 339, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "t_bone" },
+    { id: "cor-5", orden: 39, categoria: "Cortes", nombre: "Sirloin (400 gr)", destacado: false, agotado: false, activo: true, descripcion: "Corte magro de 400 gr a la parrilla.", precio: 349, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "sirloin_corte" },
+    { id: "cor-6", orden: 40, categoria: "Cortes", nombre: "Arrachera", destacado: false, agotado: false, activo: true, descripcion: "Arrachera marinada a la parrilla.", precio: 299, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "arrachera_corte" },
+    { id: "cor-7", orden: 41, categoria: "Cortes", nombre: "Pechuga a la Plancha", destacado: false, agotado: false, activo: true, descripcion: "Pechuga de pollo sazonada a la plancha.", precio: 149, ingredientes: ["Cebolla caramelizada", "Chile jalapeño asado", "Guacamole"], imgKey: "pechuga_plancha" },
+
+    { id: "hot-1", orden: 42, categoria: "Hotdogs", nombre: "Pastor Alemán", destacado: false, agotado: false, activo: true, descripcion: "Hotdog especial con carne al pastor y piña.", precio: 90, ingredientes: ["Tocino envuelto", "Carne al pastor", "Queso fundido", "Piña", "Salsa bandera", "Papas a la francesa"], imgKey: "pastor_aleman" },
+    { id: "hot-2", orden: 43, categoria: "Hotdogs", nombre: "San Bernardo", destacado: false, agotado: false, activo: true, descripcion: "Hotdog relleno de queso amarillo y empanizado.", precio: 90, ingredientes: ["Tocino envuelto", "Queso amarillo", "Empanizado", "Salsa bandera", "Papas a la francesa"], imgKey: "san_bernardo" },
+    { id: "hot-3", orden: 44, categoria: "Hotdogs", nombre: "Pizza Dog", destacado: false, agotado: false, activo: true, descripcion: "Con salsa de pizza, pepperoni y queso fundido.", precio: 90, ingredientes: ["Tocino envuelto", "Salsa de pizza", "Pepperoni", "Queso fundido", "Papas a la francesa"], imgKey: "pizza_dog" },
+    { id: "hot-4", orden: 45, categoria: "Hotdogs", nombre: "Perro Malix", destacado: false, agotado: false, activo: true, descripcion: "Clásico estilo mexicano con pico de gallo.", precio: 75, ingredientes: ["Tocino envuelto", "Chiles jalapeños", "Tomate picado", "Cebolla picada", "Papas a la francesa"], imgKey: "perro_malix" },
+
+    { id: "sus-1", orden: 46, categoria: "Sushi y Pastas", nombre: "Sushi (10 rollos)", destacado: true, agotado: false, activo: true, descripcion: "Rollo de arroz con alga nori y proteína a elegir.", precio: 149, variantes: [{ nombre: "Proteína: Arrachera", precio: 149 }, { nombre: "Proteína: Camarón", precio: 149 }, { nombre: "Proteína: Pollo", precio: 149 }], ingredientes: ["Queso Philadelphia", "Zanahoria", "Pepino", "Alga nori"], imgKey: "sushi_rollos" },
+    { id: "pas-1", orden: 47, categoria: "Sushi y Pastas", nombre: "Pasta Alfredo", destacado: false, agotado: false, activo: true, descripcion: "Fetuccini cremoso con jamón, tocino y champiñones.", precio: 129, variantes: [{ nombre: "Con Pollo", precio: 129 }, { nombre: "Con Camarón", precio: 149 }], ingredientes: ["Jamón", "Tocino", "Champiñones", "Crema de la casa", "Queso parmesano"], imgKey: "pasta_alfredo" },
+    { id: "pas-2", orden: 48, categoria: "Sushi y Pastas", nombre: "Pasta a la Carbonara", destacado: false, agotado: false, activo: true, descripcion: "Fetuccini salteado con tocino y ajo en salsa cremosa.", precio: 129, variantes: [{ nombre: "Con Pollo", precio: 129 }, { nombre: "Con Camarón", precio: 149 }], ingredientes: ["Tocino", "Ajo", "Salsa de crema y huevo", "Queso parmesano"], imgKey: "pasta_carbonara" },
+    { id: "pas-3", orden: 49, categoria: "Sushi y Pastas", nombre: "Pasta a la Boloñesa", destacado: false, agotado: false, activo: true, descripcion: "Fetuccini en salsa boloñesa con especias italianas.", precio: 149, ingredientes: ["Carne boloñesa", "Especias italianas", "Queso parmesano"], imgKey: "pasta_bolonesa" },
+
+    { id: "ent-1", orden: 50, categoria: "Entradas y Ensaladas", nombre: "Platón de Amigos", destacado: true, agotado: false, activo: true, descripcion: "Ideal para compartir entre varios.", precio: 419, ingredientes: ["½ Orden alita botanera", "½ Orden boneless", "½ Orden dedos de queso", "6 Aros de cebolla", "4 Rebanadas pizza pepperoni", "Papas gajo", "Papas a la francesa", "Aderezos"], imgKey: "platon_amigos" },
+    { id: "ent-2", orden: 51, categoria: "Entradas y Ensaladas", nombre: "Nachos al Pastor", destacado: false, agotado: false, activo: true, descripcion: "Totopos crujientes preparados con carne al pastor.", precio: 159, ingredientes: ["Frijoles negros", "Carne al pastor", "Piña", "Queso mozzarella", "Cebolla", "Tomate", "Chiles jalapeños picados"], imgKey: "nachos_pastor" },
+    { id: "ent-3", orden: 52, categoria: "Entradas y Ensaladas", nombre: "Queso Fundido (150 gr)", destacado: false, agotado: false, activo: true, descripcion: "Queso derretido con tortillas.", precio: 100, variantes: [{ nombre: "Natural", precio: 100 }, { nombre: "Con Champiñones", precio: 119 }, { nombre: "Con Chorizo", precio: 129 }, { nombre: "Con Pastor", precio: 149 }, { nombre: "Con Arrachera", precio: 159 }], ingredientes: ["Tortillas"], imgKey: "queso_fundido" },
+    { id: "ent-4", orden: 53, categoria: "Entradas y Ensaladas", nombre: "Vampiros (3 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Tortillas horneadas crujientes con queso y carne a elegir.", precio: 129, variantes: [{ nombre: "Carne: Pastor", precio: 129 }, { nombre: "Carne: Arrachera", precio: 129 }], ingredientes: ["Queso mozzarella fundido", "Cebolla caramelizada", "Salsa bandera", "Guacamole"], imgKey: "vampiros" },
+    { id: "ent-5", orden: 54, categoria: "Entradas y Ensaladas", nombre: "Ensalada Chary", destacado: false, agotado: false, activo: true, descripcion: "Ensalada italiana fresca con pollo.", precio: 179, variantes: [{ nombre: "Con Pechuga a la Plancha", precio: 179 }, { nombre: "Con Pechuga Empanizada", precio: 214 }], ingredientes: ["Lechuga italiana", "Tomate", "Zanahoria rayada", "Jamón", "Crutones", "Queso parmesano"], imgKey: "ensalada_chary" },
+    { id: "ent-6", orden: 55, categoria: "Entradas y Ensaladas", nombre: "Papas a la Francesa", destacado: false, agotado: false, activo: true, descripcion: "Orden de papas a la francesa.", precio: 60, ingredientes: ["Catsup / Aderezo"], imgKey: "papas_francesa" },
+    { id: "ent-7", orden: 56, categoria: "Entradas y Ensaladas", nombre: "Papas Gajo", destacado: false, agotado: false, activo: true, descripcion: "Orden de papas gajo sazonadas.", precio: 69, ingredientes: ["Catsup / Aderezo"], imgKey: "papas_gajo" },
+    { id: "ent-8", orden: 57, categoria: "Entradas y Ensaladas", nombre: "Pan con Ajo (4 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Pan tostado con mantequilla de ajo y especias.", precio: 59, ingredientes: [], imgKey: "pan_ajo" },
+    { id: "ent-9", orden: 58, categoria: "Entradas y Ensaladas", nombre: "Aros de Cebolla (8 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Aros de cebolla empanizados crujientes.", precio: 79, ingredientes: ["Aderezo"], imgKey: "aros_cebolla" },
+    { id: "ent-10", orden: 59, categoria: "Entradas y Ensaladas", nombre: "Guacamole", destacado: false, agotado: false, activo: true, descripcion: "Guacamole fresco preparado al momento.", precio: 89, ingredientes: ["Cebolla", "Tomate", "Cilantro / Chile", "Totopos"], imgKey: "guacamole" },
+    { id: "ent-11", orden: 60, categoria: "Entradas y Ensaladas", nombre: "Dedos de Queso (6 pzas)", destacado: false, agotado: false, activo: true, descripcion: "Dedos de queso empanizados.", precio: 89, ingredientes: ["Aderezo"], imgKey: "dedos_queso" },
+
+    { id: "esp-1", orden: 61, categoria: "Especiales y Frappés", nombre: "Extintor de Soda Italiana (2 Litros)", destacado: true, agotado: false, activo: true, descripcion: "Extintor de 2 litros de soda italiana para compartir.", precio: 149, variantes: [{ nombre: "Blueberry", precio: 149 }, { nombre: "Manzana Verde", precio: 149 }, { nombre: "Fresa", precio: 149 }, { nombre: "Pitahaya", precio: 149 }, { nombre: "Chicle Azul", precio: 149 }, { nombre: "Mango", precio: 149 }, { nombre: "Piña Colada", precio: 149 }, { nombre: "Kiwi", precio: 149 }, { nombre: "Cereza", precio: 149 }, { nombre: "Taro", precio: 149 }], ingredientes: ["Hielo"], imgKey: "extintor_soda" },
+    { id: "esp-2", orden: 62, categoria: "Especiales y Frappés", nombre: "Sodas Italianas", destacado: false, agotado: false, activo: true, descripcion: "Soda italiana burbujeante en dos tamaños.", precio: 59, variantes: [{ nombre: "473 ml - Blueberry", precio: 59 }, { nombre: "473 ml - Fresa", precio: 59 }, { nombre: "473 ml - Mango", precio: 59 }, { nombre: "473 ml - Taro", precio: 59 }, { nombre: "946 ml - Blueberry", precio: 79 }, { nombre: "946 ml - Fresa", precio: 79 }, { nombre: "946 ml - Mango", precio: 79 }, { nombre: "946 ml - Taro", precio: 79 }], ingredientes: ["Hielo"], imgKey: "sodas_italianas" },
+    { id: "esp-3", orden: 63, categoria: "Especiales y Frappés", nombre: "Perlas Explosivas (Extra)", destacado: false, agotado: false, activo: true, descripcion: "Porción extra de perlas explosivas para tu bebida.", precio: 15, variantes: [{ nombre: "Blueberry", precio: 15 }, { nombre: "Chamoy", precio: 15 }, { nombre: "Piña Colada", precio: 15 }, { nombre: "Fresa", precio: 15 }], ingredientes: [], imgKey: "perlas_explosivas" },
+    { id: "esp-4", orden: 64, categoria: "Especiales y Frappés", nombre: "ICEE", destacado: false, agotado: false, activo: true, descripcion: "Bebida frozen clásica.", precio: 89, variantes: [{ nombre: "Cereza", precio: 89 }, { nombre: "Mora Azul", precio: 89 }], ingredientes: [], imgKey: "icee" },
+    { id: "esp-5", orden: 65, categoria: "Especiales y Frappés", nombre: "Fresas con Crema", destacado: true, agotado: false, activo: true, descripcion: "Fresas frescas bañadas en nuestra crema especial.", precio: 89, ingredientes: ["Crema batida", "Topping dulce"], imgKey: "fresas_crema" },
+    { id: "esp-6", orden: 66, categoria: "Especiales y Frappés", nombre: "Frappés", destacado: false, agotado: false, activo: true, descripcion: "Frappé cremoso preparado al momento.", precio: 85, variantes: [{ nombre: "Taro", precio: 85 }, { nombre: "Oreo", precio: 85 }, { nombre: "Mazapán", precio: 85 }, { nombre: "Cappuccino", precio: 85 }, { nombre: "Moka", precio: 85 }, { nombre: "Caramelo", precio: 85 }, { nombre: "Bubulubu", precio: 85 }, { nombre: "Chocolate Blanco", precio: 85 }, { nombre: "Mango", precio: 85 }, { nombre: "Fresa", precio: 85 }], ingredientes: ["Crema batida", "Topping"], imgKey: "frappes" },
+
+    { id: "beb-1", orden: 67, categoria: "Bebidas", nombre: "Limonada de Sabor", destacado: true, agotado: false, activo: true, descripcion: "Limonada fresca preparada con fruta y escarchado.", precio: 75, variantes: [{ nombre: "Fresa", precio: 75 }, { nombre: "Mango", precio: 75 }], ingredientes: ["Escarchado de chamoy", "Fruta picada", "Hielo"], imgKey: "limonada_sabor" },
+    { id: "beb-2", orden: 68, categoria: "Bebidas", nombre: "Sangría Preparada", destacado: false, agotado: false, activo: true, descripcion: "Preparada con salsas negras y limón.", precio: 69, ingredientes: ["Escarchado chamoy y tajín", "Salsa inglesa", "Jugo Maggi", "Salsa Valentina", "Limón", "Hielo"], imgKey: "sangria_preparada" },
+    { id: "beb-3", orden: 69, categoria: "Bebidas", nombre: "Sangría", destacado: false, agotado: false, activo: true, descripcion: "Sangría clásica fría.", precio: 39, ingredientes: ["Hielo"], imgKey: "sangria" },
+    { id: "beb-4", orden: 70, categoria: "Bebidas", nombre: "Agua Mineral Preparada", destacado: false, agotado: false, activo: true, descripcion: "Agua mineral fresca escarchada.", precio: 49, ingredientes: ["Escarchado limón y sal", "Rodajas de limón", "Hielo"], imgKey: "agua_mineral_preparada" },
+    { id: "beb-5", orden: 71, categoria: "Bebidas", nombre: "Agua Mineral", destacado: false, agotado: false, activo: true, descripcion: "Agua mineral fría.", precio: 35, ingredientes: ["Hielo"], imgKey: "agua_mineral" },
+    { id: "beb-6", orden: 72, categoria: "Bebidas", nombre: "Coca Cola", destacado: false, agotado: false, activo: true, descripcion: "Refresco Coca Cola.", precio: 39, ingredientes: ["Hielo"], imgKey: "coca_cola" },
+    { id: "beb-7", orden: 73, categoria: "Bebidas", nombre: "Coca Cola Zero", destacado: false, agotado: false, activo: true, descripcion: "Refresco Coca Cola Zero.", precio: 30, ingredientes: ["Hielo"], imgKey: "coca_zero" },
+    { id: "beb-8", orden: 74, categoria: "Bebidas", nombre: "Pepsi 400 ml", destacado: false, agotado: false, activo: true, descripcion: "Refresco Pepsi 400 ml.", precio: 29, ingredientes: ["Hielo"], imgKey: "pepsi" },
+    { id: "beb-9", orden: 75, categoria: "Bebidas", nombre: "Pepsi Black", destacado: false, agotado: false, activo: true, descripcion: "Refresco Pepsi Black.", precio: 29, ingredientes: ["Hielo"], imgKey: "pepsi_black" },
+    { id: "beb-10", orden: 76, categoria: "Bebidas", nombre: "Refresco de Sabor 400 ml", destacado: false, agotado: false, activo: true, descripcion: "Refresco de sabor 400 ml.", precio: 29, variantes: [{ nombre: "Manzanita", precio: 29 }, { nombre: "Squirt", precio: 29 }, { nombre: "7up", precio: 29 }, { nombre: "Mirinda", precio: 29 }], ingredientes: ["Hielo"], imgKey: "refresco_sabor" },
+    { id: "beb-11", orden: 77, categoria: "Bebidas", nombre: "Arizona", destacado: false, agotado: false, activo: true, descripcion: "Bebida refrescante Arizona.", precio: 39, variantes: [{ nombre: "Fresa-Kiwi", precio: 39 }, { nombre: "Mango", precio: 39 }, { nombre: "Sandía", precio: 39 }, { nombre: "Té Verde", precio: 39 }], ingredientes: [], imgKey: "arizona" },
+    { id: "beb-12", orden: 78, categoria: "Bebidas", nombre: "Rellenables (Solo en cafetería)", destacado: false, agotado: false, activo: true, descripcion: "Refill personal (si se comparte se rellena solo 1 vez). Permite cambiar de sabor.", precio: 45, variantes: [{ nombre: "Pepsi", precio: 45 }, { nombre: "Té Helado", precio: 45 }, { nombre: "Horchata", precio: 45 }, { nombre: "Naranja", precio: 45 }, { nombre: "Jamaica", precio: 45 }], ingredientes: ["Hielo"], imgKey: "rellenables" },
+    { id: "beb-13", orden: 79, categoria: "Bebidas", nombre: "Agua Natural", destacado: false, agotado: false, activo: true, descripcion: "Botella de agua natural.", precio: 15, ingredientes: [], imgKey: "agua_natural" },
+    { id: "beb-14", orden: 80, categoria: "Bebidas", nombre: "Juguito", destacado: false, agotado: false, activo: true, descripcion: "Jugo individual.", precio: 15, ingredientes: [], imgKey: "juguito" }
+];
+
+let siteConfig = JSON.parse(localStorage.getItem("rr_siteConfig")) || structuredClone(DEFAULT_SITE_CONFIG);
+if (siteConfig.servicios && siteConfig.servicios.costoEnvio === 25) {
+    siteConfig.servicios.costoEnvio = 0;
+    localStorage.setItem("rr_siteConfig", JSON.stringify(siteConfig));
+}
+if (!siteConfig.direccion || siteConfig.direccion === "Campeche, México") {
+    siteConfig.direccion = DEFAULT_SITE_CONFIG.direccion;
+}
+if (!siteConfig.googleMapsUrl) {
+    siteConfig.googleMapsUrl = DEFAULT_SITE_CONFIG.googleMapsUrl;
+}
+
+let products = JSON.parse(localStorage.getItem("rr_products")) || structuredClone(INITIAL_PRODUCTS);
+let promotions = JSON.parse(localStorage.getItem("rr_promotions")) || [];
+let orders = JSON.parse(localStorage.getItem("rr_orders")) || [];
+
+let activeCategory = "Todos";
+let searchQuery = "";
+let cart = [];
+let currentCustomItem = null;
+let selectedVariantIdx = 0;
+let removedIngredients = new Set();
+let pickedFlavors = new Set();
+let modalQuantity = 1;
+let isAdminAuthenticated = sessionStorage.getItem("rr_admin_session") === "active";
+let salesChartInstance = null;
+let lastOrderSubmitHash = "";
+
+const CATEGORY_EMOJIS = {
+    "Todos": "✨", "Cafés y Postres": "☕", "Hamburguesas": "🍔", "Alitas y Boneless": "🍗",
+    "Pizzas": "🍕", "Cortes": "🥩", "Hotdogs": "🌭", "Sushi y Pastas": "🍣",
+    "Entradas y Ensaladas": "🍟", "Especiales y Frappés": "🧋", "Bebidas": "🥤"
+};
+
+function getProductImageUrl(item) {
+    if (item.imgKey && GALERIA_IMAGENES[item.imgKey]) return GALERIA_IMAGENES[item.imgKey];
+    return item.imagen || "";
+}
+
+function showToast(msg) {
+    const el = document.getElementById("admToast");
+    el.textContent = msg;
+    el.style.display = "block";
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => { el.style.display = "none"; }, 3200);
+}
+
+async function initFirebaseSync() {
+    if (!firebaseReady) {
+        document.getElementById("fbStatusBadge").textContent = "● Modo Local";
+        document.getElementById("fbStatusBadge").style.color = "#FACC15";
+        applyAllPublicUpdates();
+        return;
+    }
+
+    try {
+        if (auth && !auth.currentUser) {
+            await signInAnonymously(auth).catch((err) => {
+                console.warn("Aviso Auth anónimo:", err.message);
+            });
+        }
+
+        const cfgRef = doc(db, "config", "general");
+        const promosRef = doc(db, "config", "promociones");
+        const cfgSnap = await getDoc(cfgRef);
+
+        if (!cfgSnap.exists()) {
+            await setDoc(cfgRef, siteConfig);
+            await setDoc(promosRef, { lista: promotions });
+            for (const p of products) {
+                await setDoc(doc(db, "productos", p.id), p);
+            }
+        }
+
+        document.getElementById("fbStatusBadge").textContent = "● Firestore Sincronizado";
+        document.getElementById("fbStatusBadge").style.color = "#4ADE80";
+
+        onSnapshot(cfgRef, (snap) => {
+            if (snap.exists()) {
+                siteConfig = { ...structuredClone(DEFAULT_SITE_CONFIG), ...snap.data() };
+                localStorage.setItem("rr_siteConfig", JSON.stringify(siteConfig));
+                applyAllPublicUpdates();
+                if (isAdminAuthenticated) loadAdminConfigForms();
+            }
+        }, (err) => console.error("Error en listener config:", err));
+
+        onSnapshot(promosRef, (snap) => {
+            if (snap.exists()) {
+                promotions = snap.data().lista || [];
+                localStorage.setItem("rr_promotions", JSON.stringify(promotions));
+                renderPublicPromotions();
+                if (isAdminAuthenticated) renderAdminPromotions();
+            }
+        }, (err) => console.error("Error en listener promociones:", err));
+
+        onSnapshot(collection(db, "productos"), (snap) => {
+            if (!snap.empty) {
+                products = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                    .sort((a, b) => (a.orden || 999) - (b.orden || 999));
+                localStorage.setItem("rr_products", JSON.stringify(products));
+                renderCategories();
+                renderMenu();
+                if (isAdminAuthenticated) renderAdminProducts();
+            }
+        }, (err) => console.error("Error en listener productos:", err));
+
+        subscribeAdminOrders();
+    } catch (err) {
+        console.error("Error conectando con Firestore:", err);
+        document.getElementById("fbStatusBadge").textContent = "● Error de conexión";
+        document.getElementById("fbStatusBadge").style.color = "#F87171";
+        showToast("⚠️ Revisa la conexión o reglas de Firestore");
+    }
+}
+
+let unsubOrders = null;
+function subscribeAdminOrders() {
+    if (!firebaseReady || unsubOrders) return;
+    const q = query(collection(db, "pedidos"), orderBy("timestamp", "desc"));
+    unsubOrders = onSnapshot(q, (snap) => {
+        orders = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+        localStorage.setItem("rr_orders", JSON.stringify(orders));
+        refreshAdminAnalyticsAndLists();
+    }, (err) => {
+        console.warn("Lectura de pedidos en tiempo real limitada por reglas o auth:", err.message);
+    });
+}
+
+document.getElementById("searchInput").addEventListener("input", async (e) => {
+    const rawVal = e.target.value;
+
+    if (rawVal.trim().toLowerCase() === SECRET_ADMIN_COMMAND) {
+        e.target.value = "";
+        searchQuery = "";
+        renderMenu();
+        isAdminAuthenticated = true;
+        sessionStorage.setItem("rr_admin_session", "active");
+        if (firebaseReady && auth && !auth.currentUser) {
+            await signInAnonymously(auth).catch(() => {});
+        }
+        subscribeAdminOrders();
+        openAdminPanel();
+        showToast("✅ Bienvenido al Panel Administrativo");
+        return;
+    }
+
+    searchQuery = rawVal.toLowerCase().trim();
+    renderMenu();
+});
+
+window.logoutAdmin = function () {
+    isAdminAuthenticated = false;
+    sessionStorage.removeItem("rr_admin_session");
+    hideAdminPanel();
+    showToast("🔒 Sesión cerrada correctamente");
+};
+
+function openAdminPanel() {
+    document.getElementById("adminPanelOverlay").classList.add("open");
+    document.body.classList.add("admin-open");
+    loadAdminConfigForms();
+    renderAdminProducts();
+    renderAdminPromotions();
+    refreshAdminAnalyticsAndLists();
+}
+
+window.hideAdminPanel = function () {
+    document.getElementById("adminPanelOverlay").classList.remove("open");
+    document.body.classList.remove("admin-open");
+};
+
+window.switchAdminTab = function (tabName, btnEl) {
+    document.querySelectorAll(".adm-tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".adm-nav-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById(`tab-${tabName}`).classList.add("active");
+    if (btnEl) btnEl.classList.add("active");
+
+    const titles = {
+        dashboard: "Dashboard Principal",
+        pedidos: "Gestión de Pedidos Activos",
+        historial: "Historial Permanente y Ventas",
+        productos: "Gestión de Productos y Categorías",
+        promociones: "Promociones y Descuentos",
+        servicios: "Servicios y Métodos de Pago",
+        restaurante: "Configuración del Restaurante",
+        apariencia: "Personalización Visual del Sitio"
+    };
+    document.getElementById("admPageTitle").textContent = titles[tabName] || "Panel";
+    if (tabName === "dashboard") renderSalesChart();
+};
+
+function applyAllPublicUpdates() {
+    const ap = siteConfig.apariencia || DEFAULT_SITE_CONFIG.apariencia;
+    document.documentElement.style.setProperty("--rose-pop", ap.primaryColor || "#E11D48");
+    document.documentElement.style.setProperty("--gold-main", ap.secondaryColor || "#E5A93B");
+    document.documentElement.style.setProperty("--black-luxe", ap.darkColor || "#0D0D10");
+    document.getElementById("bgDoodlesWrap").style.display = ap.showDoodles !== false ? "block" : "none";
+
+    document.getElementById("logoImg").src = GALERIA_IMAGENES.logo;
+    document.getElementById("admSidebarLogo").src = GALERIA_IMAGENES.logo;
+    document.getElementById("pubBrandName").textContent = siteConfig.restaurante;
+    document.getElementById("pubTagline").textContent = siteConfig.eslogan;
+    document.getElementById("pubSparkles").textContent = ap.sparklesText;
+    document.getElementById("pubWelcomeSub").textContent = ap.welcomeText;
+
+    const mapsLink = siteConfig.googleMapsUrl || DEFAULT_SITE_CONFIG.googleMapsUrl;
+
+    document.getElementById("pubMetaBar").innerHTML = `
+        <span class="meta-chip">📍 ${siteConfig.direccion}</span>
+        <span class="meta-chip">🕒 ${siteConfig.horarios}</span>
+        <span class="meta-chip">📱 ${siteConfig.telefonoVisible}</span>
+        <a href="${mapsLink}" target="_blank" rel="noopener noreferrer" class="btn-maps-gold">🗺️ Cómo llegar</a>
+    `;
+
+    document.getElementById("locAddressText").textContent = siteConfig.direccion;
+    document.getElementById("locMapsBtn").href = mapsLink;
+    document.getElementById("locMetaDetails").innerHTML = `
+        <span>🕒 ${siteConfig.horarios} (${siteConfig.diasServicio})</span>
+        <span>📱 ${siteConfig.telefonoVisible}</span>
+        ${siteConfig.redes ? `<span>✨ ${siteConfig.redes}</span>` : ""}
+    `;
+
+    document.getElementById("pubFooter").innerHTML = `
+        <strong>☕ ${siteConfig.restaurante} — ${siteConfig.eslogan} 🌹</strong> &bull; ${siteConfig.direccion} &bull; 📱 ${siteConfig.telefonoVisible}
+    `;
+
+    const closedBanner = document.getElementById("storeClosedBanner");
+    const topPill = document.getElementById("topStoreStatusPill");
+    if (!siteConfig.abierto) {
+        closedBanner.classList.add("visible");
+        document.getElementById("bannerScheduleText").textContent = siteConfig.horarios;
+        topPill.textContent = "CERRADO";
+        topPill.className = "status-pill st-Cancelado";
+    } else {
+        closedBanner.classList.remove("visible");
+        topPill.textContent = "ABIERTO";
+        topPill.className = "status-pill st-Completado";
+    }
+
+    renderPublicPromotions();
+    renderCategories();
+    renderMenu();
+}
+
+function renderPublicPromotions() {
+    const wrap = document.getElementById("publicPromosContainer");
+    const today = new Date().toISOString().slice(0, 10);
+    const activePromos = promotions.filter(p => {
+        if (!p.activa) return false;
+        if (p.inicio && today < p.inicio) return false;
+        if (p.fin && today > p.fin) return false;
+        return true;
+    });
+
+    if (activePromos.length === 0) {
+        wrap.innerHTML = "";
+        return;
+    }
+
+    wrap.innerHTML = activePromos.map(p => `
+        <div class="promo-banner-card">
+            <div style="font-size:2rem;">🏷️</div>
+            <div>
+                ${p.descuento ? `<span class="promo-discount-pill">${p.descuento}</span>` : ""}
+                <h4 style="font-family:'Fredoka',sans-serif; color:#FFD15C; font-size:1.05rem;">${p.titulo}</h4>
+                <p style="font-size:0.8rem; color:#E4E4E7;">${p.descripcion || ""}</p>
+            </div>
+        </div>
+    `).join("");
+}
+
+function renderCategories() {
+    const visibleProducts = products.filter(p => p.activo !== false);
+    const catsInUse = [...new Set(visibleProducts.map(item => item.categoria))];
+    const orderedCats = ["Todos", ...siteConfig.categoriasLista.filter(c => catsInUse.includes(c)), ...catsInUse.filter(c => !siteConfig.categoriasLista.includes(c))];
+
+    const bar = document.getElementById("categoriesBar");
+    bar.innerHTML = orderedCats.map(cat => {
+        const icon = CATEGORY_EMOJIS[cat] || "🍽️";
+        return `
+            <button class="cat-btn ${cat === activeCategory ? 'active' : ''}" onclick="setCategory('${cat}')">
+                ${icon} ${cat}
+            </button>
+        `;
+    }).join("");
+}
+
+window.setCategory = function (cat) {
+    activeCategory = cat;
+    renderCategories();
+    renderMenu();
+};
+
+function renderMenu() {
+    const container = document.getElementById("menuContainer");
+    const visibleProducts = products.filter(p => p.activo !== false);
+
+    const filtered = visibleProducts.filter(item => {
+        const matchCat = activeCategory === "Todos" || item.categoria === activeCategory;
+        const matchIng = item.ingredientes ? item.ingredientes.some(i => i.toLowerCase().includes(searchQuery)) : false;
+        const matchSearch = item.nombre.toLowerCase().includes(searchQuery) ||
+                            (item.descripcion || "").toLowerCase().includes(searchQuery) ||
+                            item.categoria.toLowerCase().includes(searchQuery) ||
+                            matchIng;
+        return matchCat && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<p style="text-align:center; padding:45px; color:var(--text-muted); font-weight:600;">😕 No encontramos platillos con "${searchQuery}".</p>`;
+        return;
+    }
+
+    const grouped = {};
+    filtered.forEach(item => {
+        if (!grouped[item.categoria]) grouped[item.categoria] = [];
+        grouped[item.categoria].push(item);
+    });
+
+    let html = "";
+    for (const [cat, items] of Object.entries(grouped)) {
+        const catIcon = CATEGORY_EMOJIS[cat] || "🍽️";
+
+        html += `
+            <div class="section-header">
+                <div class="section-badge-icon">${catIcon}</div>
+                <h2>${cat}</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid">
+        `;
+
+        items.forEach(item => {
+            const hasVars = item.variantes && item.variantes.length > 0;
+            const basePrice = hasVars ? item.variantes[0].precio : item.precio;
+            const pricePrefix = hasVars && new Set(item.variantes.map(v => v.precio)).size > 1 ? "Desde " : "";
+            const imgUrl = getProductImageUrl(item);
+            const hasImage = imgUrl && imgUrl.trim() !== "";
+            const hasCustom = (item.ingredientes && item.ingredientes.length > 0) || hasVars || item.elegirSabores;
+            const isSoldOut = item.agotado === true;
+
+            html += `
+                <div class="card ${item.destacado ? 'featured-card' : ''} ${isSoldOut ? 'sold-out' : ''}">
+                    ${hasImage ? `
+                        <div class="card-img-wrap">
+                            ${item.destacado ? `<span class="badge-star">🔥 Favorito</span>` : ""}
+                            ${isSoldOut ? `<span class="badge-soldout">AGOTADO</span>` : ""}
+                            <img src="${imgUrl}" alt="${item.nombre}" loading="lazy">
+                        </div>
+                    ` : ""}
+                    <div class="card-body">
+                        <div class="card-top">
+                            <h3 class="card-title">${item.destacado && !hasImage ? '🔥 ' : ''}${item.nombre}</h3>
+                            <span class="card-price">${pricePrefix}$${basePrice}</span>
+                        </div>
+                        <p class="card-desc">${item.descripcion || ""}</p>
+
+                        ${item.ingredientes && item.ingredientes.length > 0 ? `
+                            <div class="ingredients-preview">
+                                ${item.ingredientes.map(ing => `<span class="ing-tag">• ${ing}</span>`).join("")}
+                            </div>
+                        ` : `<div style="flex:1"></div>`}
+
+                        <div class="card-actions">
+                            ${isSoldOut ? `
+                                <button class="btn-quick-add" style="width:100%;" disabled>
+                                    Producto Agotado
+                                </button>
+                            ` : hasCustom ? `
+                                <button class="btn-customize" onclick="openCustomize('${item.id}')">
+                                    ✨ Personalizar
+                                </button>
+                                <button class="btn-quick-add" onclick="quickAdd('${item.id}')">
+                                    + Agregar
+                                </button>
+                            ` : `
+                                <button class="btn-quick-add" style="width:100%" onclick="quickAdd('${item.id}')">
+                                    + Agregar al pedido 🛒
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    container.innerHTML = html;
+}
+
+window.openCustomize = function (id) {
+    currentCustomItem = products.find(p => p.id === id);
+    if (!currentCustomItem || currentCustomItem.agotado) return;
+    selectedVariantIdx = 0;
+    removedIngredients = new Set();
+    pickedFlavors = new Set();
+    modalQuantity = 1;
+
+    document.getElementById("custTitle").textContent = "✨ " + currentCustomItem.nombre;
+    document.getElementById("custDesc").textContent = currentCustomItem.descripcion || "";
+    document.getElementById("custItemNote").value = "";
+    document.getElementById("modalQty").textContent = "1";
+
+    renderCustomModalBody();
+    updateModalSubtotal();
+    document.getElementById("customModal").classList.add("open");
+};
+
+function renderCustomModalBody() {
+    const body = document.getElementById("custDynamicBody");
+    let html = "";
+
+    if (currentCustomItem.variantes && currentCustomItem.variantes.length > 0) {
+        html += `
+            <div class="custom-section">
+                <label class="custom-label">🎯 Elige una opción *</label>
+                <div class="variants-grid">
+                    ${currentCustomItem.variantes.map((v, idx) => `
+                        <button type="button" class="variant-pill ${idx === selectedVariantIdx ? 'selected' : ''}" onclick="selectVariant(${idx})">
+                            <div>${v.nombre}</div>
+                            <small style="opacity:0.85">$${v.precio}</small>
+                        </button>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    if (currentCustomItem.elegirSabores) {
+        const cfg = currentCustomItem.elegirSabores;
+        html += `
+            <div class="custom-section">
+                <label class="custom-label">🎨 ${cfg.titulo} <span class="custom-hint">(${pickedFlavors.size}/${cfg.max})</span></label>
+                <div class="ingredients-interactive">
+                    ${cfg.opciones.map(op => {
+                        const isPicked = pickedFlavors.has(op);
+                        return `
+                            <button type="button" class="flavor-toggle ${isPicked ? 'picked' : ''}" onclick="toggleFlavor('${op}')">
+                                ${isPicked ? '💖 ' : '+ '}${op}
+                            </button>
+                        `;
+                    }).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    if (currentCustomItem.ingredientes && currentCustomItem.ingredientes.length > 0) {
+        html += `
+            <div class="custom-section">
+                <label class="custom-label">
+                    🥗 Ingredientes incluidos <span class="custom-hint">(toca para quitar)</span>
+                </label>
+                <div class="ingredients-interactive">
+                    ${currentCustomItem.ingredientes.map(ing => {
+                        const isRemoved = removedIngredients.has(ing);
+                        return `
+                            <button type="button" class="ing-toggle ${isRemoved ? 'removed' : ''}" onclick="toggleIngredient('${ing}')">
+                                <span>${isRemoved ? '❌' : '✅'}</span>
+                                <span>${isRemoved ? 'Sin ' + ing : ing}</span>
+                            </button>
+                        `;
+                    }).join("")}
+                </div>
+            </div>
+        `;
+    }
+    body.innerHTML = html;
+}
+
+window.selectVariant = (idx) => { selectedVariantIdx = idx; renderCustomModalBody(); updateModalSubtotal(); };
+window.toggleIngredient = (ing) => {
+    removedIngredients.has(ing) ? removedIngredients.delete(ing) : removedIngredients.add(ing);
+    renderCustomModalBody();
+};
+window.toggleFlavor = (flavor) => {
+    const max = currentCustomItem.elegirSabores.max;
+    if (pickedFlavors.has(flavor)) pickedFlavors.delete(flavor);
+    else {
+        if (pickedFlavors.size >= max) pickedFlavors.delete(pickedFlavors.values().next().value);
+        pickedFlavors.add(flavor);
+    }
+    renderCustomModalBody();
+};
+window.changeModalQty = (delta) => {
+    modalQuantity = Math.max(1, modalQuantity + delta);
+    document.getElementById("modalQty").textContent = modalQuantity;
+    updateModalSubtotal();
+};
+
+function updateModalSubtotal() {
+    const hasVars = currentCustomItem.variantes && currentCustomItem.variantes.length > 0;
+    const unitPrice = hasVars ? currentCustomItem.variantes[selectedVariantIdx].precio : currentCustomItem.precio;
+    document.getElementById("modalSubtotal").textContent = `$${unitPrice * modalQuantity}`;
+}
+
+window.confirmAddToCart = function () {
+    const hasVars = currentCustomItem.variantes && currentCustomItem.variantes.length > 0;
+    const unitPrice = hasVars ? currentCustomItem.variantes[selectedVariantIdx].precio : currentCustomItem.precio;
+    const variantName = hasVars ? currentCustomItem.variantes[selectedVariantIdx].nombre : "";
+    pushToCart({
+        id: currentCustomItem.id,
+        nombre: currentCustomItem.nombre,
+        variante: variantName,
+        sabores: Array.from(pickedFlavors),
+        sinIngredientes: Array.from(removedIngredients),
+        nota: document.getElementById("custItemNote").value.trim(),
+        precio: unitPrice,
+        qty: modalQuantity
+    });
+    closeModal("customModal");
+};
+
+window.quickAdd = function (id) {
+    const item = products.find(p => p.id === id);
+    if (!item || item.agotado) return;
+    const hasVars = item.variantes && item.variantes.length > 0;
+    pushToCart({
+        id: item.id,
+        nombre: item.nombre,
+        variante: hasVars ? item.variantes[0].nombre : "",
+        sabores: [],
+        sinIngredientes: [],
+        nota: "",
+        precio: hasVars ? item.variantes[0].precio : item.precio,
+        qty: 1
+    });
+};
+
+function pushToCart(entry) {
+    const key = JSON.stringify({ id: entry.id, v: entry.variante, s: entry.sabores.sort(), r: entry.sinIngredientes.sort(), n: entry.nota });
+    const existing = cart.find(c => c.key === key);
+    if (existing) existing.qty += entry.qty;
+    else cart.push({ ...entry, key });
+    updateCartUI();
+}
+
+window.changeCartQty = function (idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    updateCartUI();
+    renderCartItems();
+};
+
+function updateCartUI() {
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    const subAmount = cart.reduce((sum, item) => sum + (item.precio * item.qty), 0);
+    const floatBtn = document.getElementById("floatingCartBtn");
+    if (totalQty > 0) {
+        floatBtn.classList.remove("hidden");
+        document.getElementById("cartCount").textContent = totalQty;
+        document.getElementById("cartFloatTotal").textContent = `$${subAmount}`;
+    } else {
+        floatBtn.classList.add("hidden");
+        closeModal("cartModal");
+    }
+}
+
+function renderCartItems() {
+    const list = document.getElementById("cartItemsList");
+    list.innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+            <div>
+                <h4>${item.nombre}</h4>
+                <div class="cart-item-meta">${item.variante ? item.variante + " • " : ""}$${item.precio} c/u</div>
+                ${item.sabores.length > 0 ? `<div class="cart-item-meta">🎨 <strong>Sabores:</strong> ${item.sabores.join(", ")}</div>` : ""}
+                ${item.sinIngredientes.length > 0 ? `<div class="cart-item-removed">❌ Sin: ${item.sinIngredientes.join(", ")}</div>` : ""}
+                ${item.nota ? `<div class="cart-item-meta">📝 <em>"${item.nota}"</em></div>` : ""}
+            </div>
+            <div class="qty-stepper" style="padding:4px 8px; gap:8px;">
+                <button onclick="changeCartQty(${idx}, -1)">-</button>
+                <strong>${item.qty}</strong>
+                <button onclick="changeCartQty(${idx}, 1)">+</button>
+            </div>
+        </div>
+    `).join("");
+    renderCartTotals();
+}
+
+window.openCart = function () {
+    populateCheckoutOptions();
+    renderCartItems();
+    document.getElementById("cartModal").classList.add("open");
+};
+
+function populateCheckoutOptions() {
+    const srv = siteConfig.servicios || DEFAULT_SITE_CONFIG.servicios;
+    const pay = siteConfig.pagos || DEFAULT_SITE_CONFIG.pagos;
+
+    const delSel = document.getElementById("deliveryType");
+    let delOpts = "";
+    if (srv.recogerActivo) delOpts += `<option value="Recoger en sucursal">🏪 Recoger en sucursal</option>`;
+    if (srv.domicilioActivo) delOpts += `<option value="Servicio a domicilio">🛵 Servicio a domicilio</option>`;
+    if (srv.comerEnLocalActivo) delOpts += `<option value="Comer en cafetería">☕ Comer en cafetería</option>`;
+    delSel.innerHTML = delOpts || `<option value="Recoger en sucursal">🏪 Recoger en sucursal</option>`;
+
+    const paySel = document.getElementById("paymentMethod");
+    let payOpts = "";
+    if (pay.efectivo) payOpts += `<option value="Efectivo">💵 Efectivo</option>`;
+    if (pay.transferencia) payOpts += `<option value="Transferencia">🏦 Transferencia</option>`;
+    if (pay.tarjeta) payOpts += `<option value="Tarjeta">💳 Tarjeta</option>`;
+    paySel.innerHTML = payOpts || `<option value="Efectivo">💵 Efectivo</option>`;
+
+    document.getElementById("driverTip").value = srv.propinaSugerida || 0;
+    updateCheckoutFields();
+}
+
+window.updateCheckoutFields = function () {
+    const type = document.getElementById("deliveryType").value;
+    const srv = siteConfig.servicios || DEFAULT_SITE_CONFIG.servicios;
+    document.getElementById("addressGroup").style.display = type === "Servicio a domicilio" ? "block" : "none";
+    document.getElementById("tipGroup").style.display = type === "Servicio a domicilio" ? "block" : "none";
+    document.getElementById("tableGroup").style.display = (type === "Comer en cafetería" && srv.pedirMesa) ? "block" : "none";
+    renderCartTotals();
+};
+
+window.renderCartTotals = function () {
+    const subtotal = cart.reduce((sum, item) => sum + (item.precio * item.qty), 0);
+    const type = document.getElementById("deliveryType").value;
+    const srv = siteConfig.servicios || DEFAULT_SITE_CONFIG.servicios;
+    const shipping = 0;
+    const tip = (type === "Servicio a domicilio") ? Math.max(0, Number(document.getElementById("driverTip").value || 0)) : 0;
+    const total = subtotal + shipping + tip;
+
+    document.getElementById("checkoutBreakdown").innerHTML = `
+        <div class="summary-line"><span>Subtotal productos:</span><strong>$${subtotal}</strong></div>
+        ${shipping > 0 ? `<div class="summary-line"><span>Costo de envío:</span><strong>$${shipping}</strong></div>` : ""}
+        ${tip > 0 ? `<div class="summary-line"><span>Propina repartidor:</span><strong>$${tip}</strong></div>` : ""}
+        <div class="summary-line total"><span>Total a pagar:</span><span>$${total}</span></div>
+    `;
+    return { subtotal, shipping, tip, total };
+};
+
+window.processAndSendOrder = async function () {
+    if (cart.length === 0) return;
+
+    if (!siteConfig.abierto && siteConfig.bloquearSiCerrado) {
+        alert("Lo sentimos, el restaurante se encuentra CERRADO en este momento.");
+        return;
+    }
+
+    const name = document.getElementById("clientName").value.trim();
+    const delivery = document.getElementById("deliveryType").value;
+    const address = document.getElementById("clientAddress").value.trim();
+    const tableNum = document.getElementById("tableNumber").value.trim();
+    const payMethod = document.getElementById("paymentMethod").value;
+    const notes = document.getElementById("orderNotes").value.trim();
+    const srv = siteConfig.servicios || DEFAULT_SITE_CONFIG.servicios;
+
+    if (!name) { alert("Por favor escribe tu nombre."); return; }
+    if (delivery === "Servicio a domicilio" && !address) { alert("Por favor escribe tu dirección de entrega."); return; }
+    if (delivery === "Comer en cafetería" && srv.pedirMesa && !tableNum) { alert("Por favor indica tu número de mesa."); return; }
+
+    const { subtotal, shipping, tip, total } = renderCartTotals();
+    const orderHash = JSON.stringify({ name, cart, delivery, total });
+    if (orderHash === lastOrderSubmitHash) return;
+    lastOrderSubmitHash = orderHash;
+    setTimeout(() => { lastOrderSubmitHash = ""; }, 10000);
+
+    const now = new Date();
+    const orderNumber = "RR-" + String(now.getTime()).slice(-6);
+
+    const orderRecord = {
+        numeroPedido: orderNumber,
+        fechaISO: now.toISOString(),
+        fechaTexto: now.toLocaleString("es-MX"),
+        timestamp: now.getTime(),
+        cliente: name,
+        items: cart.map(c => ({
+            nombre: c.nombre,
+            variante: c.variante,
+            cantidad: c.qty,
+            precioUnitario: c.precio,
+            sabores: c.sabores,
+            sinIngredientes: c.sinIngredientes,
+            nota: c.nota
+        })),
+        subtotal,
+        costoEnvio: shipping,
+        propina: tip,
+        total,
+        tipoServicio: delivery,
+        direccion: delivery === "Servicio a domicilio" ? address : "",
+        mesa: delivery === "Comer en cafetería" ? tableNum : "",
+        metodoPago: payMethod,
+        notasGenerales: notes,
+        estado: "Pendiente"
+    };
+
+    const existsLocal = orders.some(o => o.numeroPedido === orderNumber);
+    if (!existsLocal) {
+        orders.unshift(orderRecord);
+        localStorage.setItem("rr_orders", JSON.stringify(orders));
+    }
+
+    if (firebaseReady && db) {
+        try {
+            await setDoc(doc(db, "pedidos", orderNumber), orderRecord);
+        } catch (err) {
+            console.error("Error guardando pedido en Firestore:", err);
+        }
+    }
+
+    let msg = `Hola *${siteConfig.restaurante}* ☕🌹
+*Pedido #${orderNumber}*
+
+`;
+    cart.forEach(item => {
+        msg += `• *${item.qty}x ${item.nombre}*${item.variante ? ` (${item.variante})` : ""} — $${item.precio * item.qty}
+`;
+        if (item.sabores.length > 0) msg += `   ↳ Sabores: ${item.sabores.join(", ")}
+`;
+        if (item.sinIngredientes.length > 0) msg += `   ↳ *SIN:* ${item.sinIngredientes.join(", ")}
+`;
+        if (item.nota) msg += `   ↳ Nota: ${item.nota}
+`;
+    });
+
+    msg += `
+*Subtotal:* $${subtotal}
+`;
+    if (shipping > 0) msg += `*Envío:* $${shipping}
+`;
+    if (tip > 0) msg += `*Propina repartidor:* $${tip}
+`;
+    msg += `*TOTAL:* $${total}
+`;
+    msg += `*Pago:* ${payMethod}
+`;
+    msg += `*Cliente:* ${name}
+`;
+    msg += `*Servicio:* ${delivery}
+`;
+    if (delivery === "Servicio a domicilio") msg += `*Dirección:* ${address}
+`;
+    if (delivery === "Comer en cafetería" && tableNum) msg += `*Mesa:* ${tableNum}
+`;
+    if (notes) msg += `*Notas:* ${notes}
+`;
+
+    cart = [];
+    updateCartUI();
+    closeModal("cartModal");
+
+    const url = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+};
+
+function refreshAdminAnalyticsAndLists() {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const startOfYesterday = startOfDay - 86400000;
+    const startOfWeek = startOfDay - (6 * 86400000);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+    const validOrders = orders.filter(o => o.estado !== "Cancelado");
+    const dayOrders = validOrders.filter(o => o.timestamp >= startOfDay);
+    const yesterdayOrders = validOrders.filter(o => o.timestamp >= startOfYesterday && o.timestamp < startOfDay);
+    const weekOrders = validOrders.filter(o => o.timestamp >= startOfWeek);
+    const monthOrders = validOrders.filter(o => o.timestamp >= startOfMonth);
+
+    const sumTotal = (arr) => arr.reduce((acc, o) => acc + Number(o.total || 0), 0);
+    const daySum = sumTotal(dayOrders);
+    const yestSum = sumTotal(yesterdayOrders);
+    const weekSum = sumTotal(weekOrders);
+    const monthSum = sumTotal(monthOrders);
+    const avgTicket = validOrders.length > 0 ? Math.round(sumTotal(validOrders) / validOrders.length) : 0;
+
+    const pendingCount = orders.filter(o => ["Pendiente", "Confirmado", "En preparación", "Listo para entregar"].includes(o.estado)).length;
+    const completedCount = orders.filter(o => o.estado === "Completado").length;
+
+    document.getElementById("kpiDay").textContent = `$${daySum}`;
+    document.getElementById("kpiDayComp").textContent = `Ayer: $${yestSum}`;
+    document.getElementById("kpiWeek").textContent = `$${weekSum}`;
+    document.getElementById("kpiMonth").textContent = `$${monthSum}`;
+    document.getElementById("kpiTicket").textContent = `$${avgTicket}`;
+    document.getElementById("kpiOrdersSummary").textContent = `${validOrders.length} pedidos válidos`;
+    document.getElementById("kpiTotalOrders").textContent = orders.length;
+    document.getElementById("kpiPendingOrders").textContent = pendingCount;
+    document.getElementById("kpiCompletedOrders").textContent = completedCount;
+    document.getElementById("badgePendingCount").textContent = pendingCount;
+
+    const productCounts = {};
+    validOrders.forEach(o => {
+        (o.items || []).forEach(it => {
+            productCounts[it.nombre] = (productCounts[it.nombre] || 0) + Number(it.cantidad || 1);
+        });
+    });
+    const topArr = Object.entries(productCounts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    document.getElementById("topProductsList").innerHTML = topArr.length === 0
+        ? `<p style="color:#64748B; font-size:0.85rem;">Aún no hay ventas registradas.</p>`
+        : topArr.map(([name, qty], i) => `
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #F1F5F9; font-size:0.88rem;">
+                <span><strong>#${i + 1}</strong> ${name}</span>
+                <span style="background:#FEF3C7; color:#B45309; padding:2px 8px; border-radius:99px; font-weight:800;">${qty} vendidos</span>
+            </div>
+        `).join("");
+
+    renderSalesChart();
+    renderAdminOrders();
+    renderSalesHistory();
+}
+
+function renderSalesChart() {
+    const ctx = document.getElementById("salesChart");
+    if (!ctx || typeof Chart === "undefined") return;
+
+    const labels = [];
+    const values = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const start = d.getTime();
+        const end = start + 86400000;
+        labels.push(d.toLocaleDateString("es-MX", { weekday: "short", day: "numeric" }));
+        const totalDay = orders
+            .filter(o => o.estado !== "Cancelado" && o.timestamp >= start && o.timestamp < end)
+            .reduce((s, o) => s + Number(o.total || 0), 0);
+        values.push(totalDay);
+    }
+
+    if (salesChartInstance) salesChartInstance.destroy();
+    salesChartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [{
+                label: "Ventas ($ MXN)",
+                data: values,
+                backgroundColor: "#E11D48",
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+}
+
+window.renderAdminOrders = function () {
+    const filter = document.getElementById("filterOrderStatus").value;
+    const list = orders.filter(o => filter === "Todos" || o.estado === filter);
+    const wrap = document.getElementById("adminOrdersCards");
+
+    if (list.length === 0) {
+        wrap.innerHTML = `<p style="color:#64748B;">No hay pedidos en esta vista.</p>`;
+        return;
+    }
+
+    wrap.innerHTML = list.map((o, idx) => {
+        const stClass = "st-" + o.estado.replace(/\s+/g, "-");
+        return `
+            <div class="kpi-card" style="border-left:4px solid var(--rose-pop);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <strong>#${o.numeroPedido}</strong>
+                    <span class="status-pill ${stClass}">${o.estado}</span>
+                </div>
+                <div style="font-size:0.8rem; color:#64748B; margin-bottom:8px;">
+                    🕒 ${o.fechaTexto} &bull; 👤 <strong>${o.cliente}</strong>
+                </div>
+                <div style="background:#F8FAFC; padding:8px 10px; border-radius:10px; font-size:0.82rem; margin-bottom:10px;">
+                    ${(o.items || []).map(it => `
+                        <div style="margin-bottom:4px;">
+                            <strong>${it.cantidad}x ${it.nombre}</strong> ${it.variante ? `(${it.variante})` : ""}
+                            ${it.sabores && it.sabores.length ? `<br><span style="color:#0284C7;">Sabores: ${it.sabores.join(", ")}</span>` : ""}
+                            ${it.sinIngredientes && it.sinIngredientes.length ? `<br><span style="color:#DC2626;">SIN: ${it.sinIngredientes.join(", ")}</span>` : ""}
+                            ${it.nota ? `<br><em>Nota: ${it.nota}</em>` : ""}
+                        </div>
+                    `).join("")}
+                </div>
+                <div style="font-size:0.8rem; margin-bottom:10px;">
+                    <div><strong>Servicio:</strong> ${o.tipoServicio} ${o.mesa ? `(Mesa ${o.mesa})` : ""}</div>
+                    ${o.direccion ? `<div><strong>Dirección:</strong> ${o.direccion}</div>` : ""}
+                    <div><strong>Pago:</strong> ${o.metodoPago} | <strong>Subtotal:</strong> $${o.subtotal} ${o.propina ? `| <strong>Propina:</strong> $${o.propina}` : ""}</div>
+                    <div style="font-size:1rem; font-weight:800; color:#0F172A; margin-top:4px;">Total: $${o.total}</div>
+                </div>
+                <select class="note-input" style="padding:7px;" onchange="updateOrderStatus('${o.docId || o.numeroPedido}', ${idx}, this.value)">
+                    ${["Pendiente", "Confirmado", "En preparación", "Listo para entregar", "Completado", "Cancelado"].map(st => `
+                        <option value="${st}" ${o.estado === st ? "selected" : ""}>Estado: ${st}</option>
+                    `).join("")}
+                </select>
+            </div>
+        `;
+    }).join("");
+};
+
+window.updateOrderStatus = async function (docId, idx, newStatus) {
+    if (orders[idx]) orders[idx].estado = newStatus;
+    localStorage.setItem("rr_orders", JSON.stringify(orders));
+    if (firebaseReady && db && docId) {
+        await updateDoc(doc(db, "pedidos", docId), { estado: newStatus }).catch(err => console.error(err));
+    }
+    refreshAdminAnalyticsAndLists();
+    showToast(`✅ Pedido actualizado a "${newStatus}"`);
+};
+
+window.renderSalesHistory = function () {
+    const period = document.getElementById("histPeriod").value;
+    const exactDate = document.getElementById("histDate").value;
+    const search = document.getElementById("histSearch").value.toLowerCase().trim();
+    const payFilter = document.getElementById("histPayFilter").value;
+
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const startOfWeek = startOfDay - (6 * 86400000);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+    const filtered = orders.filter(o => {
+        if (period === "day" && o.timestamp < startOfDay) return false;
+        if (period === "week" && o.timestamp < startOfWeek) return false;
+        if (period === "month" && o.timestamp < startOfMonth) return false;
+        if (exactDate && !(o.fechaISO || "").startsWith(exactDate)) return false;
+        if (payFilter !== "Todos" && o.metodoPago !== payFilter) return false;
+        if (search && !o.numeroPedido.toLowerCase().includes(search) && !o.cliente.toLowerCase().includes(search)) return false;
+        return true;
+    });
+
+    const totalSum = filtered.filter(o => o.estado !== "Cancelado").reduce((s, o) => s + Number(o.total || 0), 0);
+    document.getElementById("histCount").textContent = filtered.length;
+    document.getElementById("histTotalAmount").textContent = `$${totalSum}`;
+
+    document.getElementById("salesHistoryBody").innerHTML = filtered.map(o => `
+        <tr>
+            <td><strong>${o.numeroPedido}</strong></td>
+            <td>${o.fechaTexto}</td>
+            <td>${o.cliente}</td>
+            <td>${(o.items || []).map(i => `${i.cantidad}x ${i.nombre}`).join(", ")}</td>
+            <td>${o.tipoServicio}</td>
+            <td>${o.metodoPago}</td>
+            <td><strong>$${o.total}</strong></td>
+            <td><span class="status-pill st-${o.estado.replace(/\s+/g, "-")}">${o.estado}</span></td>
+        </tr>
+    `).join("");
+};
+
+window.exportSalesCSV = function () {
+    if (orders.length === 0) { alert("No hay ventas registradas para exportar."); return; }
+    let csv = "NumeroPedido,Fecha,Cliente,Productos,Servicio,MetodoPago,Subtotal,Envio,Propina,Total,Estado\n";
+    orders.forEach(o => {
+        const prods = (o.items || []).map(i => `${i.cantidad}x ${i.nombre}`).join(" | ").replace(/,/g, " ");
+        csv += `"${o.numeroPedido}","${o.fechaTexto}","${o.cliente}","${prods}","${o.tipoServicio}","${o.metodoPago}",${o.subtotal},${o.costoEnvio || 0},${o.propina || 0},${o.total},"${o.estado}"\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Reporte_Ventas_RioRosa_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+};
+
+window.renderAdminProducts = function () {
+    const search = document.getElementById("admProdSearch").value.toLowerCase().trim();
+    const catFilterSel = document.getElementById("admProdCatFilter");
+    const currentFilter = catFilterSel.value || "Todas";
+
+    catFilterSel.innerHTML = `<option value="Todas">Todas las categorías</option>` +
+        siteConfig.categoriasLista.map(c => `<option value="${c}" ${c === currentFilter ? "selected" : ""}>${c}</option>`).join("");
+
+    const list = products.filter(p => {
+        const matchCat = currentFilter === "Todas" || p.categoria === currentFilter;
+        const matchText = p.nombre.toLowerCase().includes(search) || (p.descripcion || "").toLowerCase().includes(search);
+        return matchCat && matchText;
+    });
+
+    document.getElementById("admProductsBody").innerHTML = list.map(p => `
+        <tr>
+            <td><strong>#${p.orden || 1}</strong></td>
+            <td><strong>${p.nombre}</strong><br><small style="color:#64748B;">${(p.ingredientes || []).slice(0, 4).join(", ")}</small></td>
+            <td>${p.categoria}</td>
+            <td><strong>$${p.precio}</strong></td>
+            <td>
+                <button class="adm-btn ${p.agotado ? 'danger' : 'success'}" onclick="toggleSoldOut('${p.id}')">
+                    ${p.agotado ? '🚫 AGOTADO' : '✅ Disponible'}
+                </button>
+                <button class="adm-btn" onclick="toggleProductActive('${p.id}')">
+                    ${p.activo !== false ? '👁️ Visible' : '🙈 Oculto'}
+                </button>
+            </td>
+            <td style="white-space:nowrap;">
+                <button class="adm-btn primary" onclick="openProductEditor('${p.id}')">✏️ Editar</button>
+                <button class="adm-btn danger" onclick="deleteProduct('${p.id}')">🗑️</button>
+            </td>
+        </tr>
+    `).join("");
+};
+
+window.toggleSoldOut = async function (id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    p.agotado = !p.agotado;
+    await persistProduct(p);
+    showToast(p.agotado ? `🚫 "${p.nombre}" marcado como AGOTADO` : `✅ "${p.nombre}" disponible nuevamente`);
+};
+
+window.toggleProductActive = async function (id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    p.activo = p.activo === false ? true : false;
+    await persistProduct(p);
+    showToast(p.activo ? `👁️ "${p.nombre}" visible en menú` : `🙈 "${p.nombre}" oculto temporalmente`);
+};
+
+window.openProductEditor = function (id) {
+    const catSel = document.getElementById("editProdCategory");
+    catSel.innerHTML = siteConfig.categoriasLista.map(c => `<option value="${c}">${c}</option>`).join("");
+
+    if (!id) {
+        document.getElementById("prodEditorTitle").textContent = "➕ Nuevo Producto";
+        document.getElementById("editProdId").value = "";
+        document.getElementById("editProdName").value = "";
+        document.getElementById("editProdPrice").value = "";
+        document.getElementById("editProdOrder").value = products.length + 1;
+        document.getElementById("editProdDesc").value = "";
+        document.getElementById("editProdIngredients").value = "";
+        document.getElementById("editProdVariants").value = "";
+        document.getElementById("editProdFeatured").checked = false;
+        document.getElementById("editProdSoldOut").checked = false;
+        document.getElementById("editProdActive").checked = true;
+    } else {
+        const p = products.find(x => x.id === id);
+        document.getElementById("prodEditorTitle").textContent = "✏️ Editar Producto";
+        document.getElementById("editProdId").value = p.id;
+        document.getElementById("editProdName").value = p.nombre;
+        catSel.value = p.categoria;
+        document.getElementById("editProdPrice").value = p.precio;
+        document.getElementById("editProdOrder").value = p.orden || 1;
+        document.getElementById("editProdDesc").value = p.descripcion || "";
+        document.getElementById("editProdIngredients").value = (p.ingredientes || []).join(", ");
+        document.getElementById("editProdVariants").value = (p.variantes || []).map(v => `${v.nombre}:${v.precio}`).join(", ");
+        document.getElementById("editProdFeatured").checked = !!p.destacado;
+        document.getElementById("editProdSoldOut").checked = !!p.agotado;
+        document.getElementById("editProdActive").checked = p.activo !== false;
+    }
+    document.getElementById("prodEditorModal").classList.add("open");
+};
+
+window.saveProductFromModal = async function () {
+    const id = document.getElementById("editProdId").value || ("prod-" + Date.now());
+    const nombre = document.getElementById("editProdName").value.trim();
+    const categoria = document.getElementById("editProdCategory").value;
+    const precio = Number(document.getElementById("editProdPrice").value);
+    const orden = Number(document.getElementById("editProdOrder").value) || 1;
+    const descripcion = document.getElementById("editProdDesc").value.trim();
+    const ingRaw = document.getElementById("editProdIngredients").value.trim();
+    const varRaw = document.getElementById("editProdVariants").value.trim();
+
+    if (!nombre || isNaN(precio)) {
+        alert("El nombre y el precio son obligatorios.");
+        return;
+    }
+
+    const ingredientes = ingRaw ? ingRaw.split(",").map(s => s.trim()).filter(Boolean) : [];
+    const variantes = varRaw ? varRaw.split(",").map(pair => {
+        const [vName, vPrice] = pair.split(":");
+        return { nombre: (vName || "").trim(), precio: Number(vPrice || precio) };
+    }).filter(v => v.nombre) : [];
+
+    const existing = products.find(p => p.id === id) || {};
+    const updated = {
+        ...existing,
+        id,
+        nombre,
+        categoria,
+        precio,
+        orden,
+        descripcion,
+        ingredientes,
+        variantes,
+        destacado: document.getElementById("editProdFeatured").checked,
+        agotado: document.getElementById("editProdSoldOut").checked,
+        activo: document.getElementById("editProdActive").checked
+    };
+
+    const idx = products.findIndex(p => p.id === id);
+    if (idx >= 0) products[idx] = updated;
+    else products.push(updated);
+    products.sort((a, b) => (a.orden || 999) - (b.orden || 999));
+
+    await persistProduct(updated);
+    closeModal("prodEditorModal");
+    showToast("✅ Producto guardado y sincronizado");
+};
+
+async function persistProduct(prod) {
+    localStorage.setItem("rr_products", JSON.stringify(products));
+    renderCategories();
+    renderMenu();
+    renderAdminProducts();
+    if (firebaseReady && db) {
+        await setDoc(doc(db, "productos", prod.id), prod).catch(err => console.error(err));
+    }
+}
+
+window.deleteProduct = async function (id) {
+    if (!confirm("¿Eliminar este producto permanentemente?")) return;
+    products = products.filter(p => p.id !== id);
+    localStorage.setItem("rr_products", JSON.stringify(products));
+    renderCategories();
+    renderMenu();
+    renderAdminProducts();
+    if (firebaseReady && db) {
+        await deleteDoc(doc(db, "productos", id)).catch(err => console.error(err));
+    }
+    showToast("🗑️ Producto eliminado");
+};
+
+window.openCategoryManager = function () {
+    renderCategoryManagerList();
+    document.getElementById("catManagerModal").classList.add("open");
+};
+
+function renderCategoryManagerList() {
+    document.getElementById("catManagerList").innerHTML = siteConfig.categoriasLista.map((c, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #E2E8F0; gap:8px;">
+            <input type="text" class="note-input" style="padding:6px 10px;" value="${c}" onchange="renameCategory(${idx}, this.value)">
+            <button class="adm-btn danger" onclick="removeCategory(${idx})">✕</button>
+        </div>
+    `).join("");
+}
+
+window.addNewCategory = async function () {
+    const val = document.getElementById("newCatName").value.trim();
+    if (!val || siteConfig.categoriasLista.includes(val)) return;
+    siteConfig.categoriasLista.push(val);
+    document.getElementById("newCatName").value = "";
+    await saveSiteConfigToDb();
+    renderCategoryManagerList();
+    showToast("✅ Categoría agregada");
+};
+
+window.renameCategory = async function (idx, newName) {
+    const oldName = siteConfig.categoriasLista[idx];
+    newName = newName.trim();
+    if (!newName || oldName === newName) return;
+    siteConfig.categoriasLista[idx] = newName;
+    products.forEach(p => { if (p.categoria === oldName) p.categoria = newName; });
+    await saveSiteConfigToDb();
+    showToast("✅ Categoría renombrada");
+};
+
+window.removeCategory = async function (idx) {
+    siteConfig.categoriasLista.splice(idx, 1);
+    await saveSiteConfigToDb();
+    renderCategoryManagerList();
+};
+
+window.renderAdminPromotions = function () {
+    const wrap = document.getElementById("adminPromosList");
+    if (promotions.length === 0) {
+        wrap.innerHTML = `<p style="color:#64748B;">No hay promociones creadas. Haz clic en "+ Nueva Promoción".</p>`;
+        return;
+    }
+    wrap.innerHTML = promotions.map((pr, idx) => `
+        <div class="kpi-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span class="status-pill ${pr.activa ? 'st-Completado' : 'st-Cancelado'}">${pr.activa ? 'ACTIVA' : 'INACTIVA'}</span>
+                <strong>${pr.descuento || ''}</strong>
+            </div>
+            <h4>${pr.titulo}</h4>
+            <p style="font-size:0.82rem; color:#64748B; margin:4px 0 8px;">${pr.descripcion || ''}</p>
+            <small style="display:block; color:#475569; margin-bottom:10px;">Vigencia: ${pr.inicio || 'Siempre'} al ${pr.fin || 'Indefinido'}</small>
+            <div style="display:flex; gap:6px;">
+                <button class="adm-btn" onclick="togglePromoActive(${idx})">${pr.activa ? 'Pausar' : 'Activar'}</button>
+                <button class="adm-btn primary" onclick="openPromoModal(${idx})">Editar</button>
+                <button class="adm-btn danger" onclick="deletePromo(${idx})">Eliminar</button>
+            </div>
+        </div>
+    `).join("");
+};
+
+window.openPromoModal = function (idx) {
+    if (idx === null) {
+        document.getElementById("promoModalTitle").textContent = "Nueva Promoción";
+        document.getElementById("editPromoId").value = "";
+        document.getElementById("promoTitle").value = "";
+        document.getElementById("promoDesc").value = "";
+        document.getElementById("promoBadge").value = "";
+        document.getElementById("promoStart").value = "";
+        document.getElementById("promoEnd").value = "";
+        document.getElementById("promoActive").checked = true;
+    } else {
+        const pr = promotions[idx];
+        document.getElementById("promoModalTitle").textContent = "Editar Promoción";
+        document.getElementById("editPromoId").value = idx;
+        document.getElementById("promoTitle").value = pr.titulo;
+        document.getElementById("promoDesc").value = pr.descripcion || "";
+        document.getElementById("promoBadge").value = pr.descuento || "";
+        document.getElementById("promoStart").value = pr.inicio || "";
+        document.getElementById("promoEnd").value = pr.fin || "";
+        document.getElementById("promoActive").checked = !!pr.activa;
+    }
+    document.getElementById("promoModal").classList.add("open");
+};
+
+window.savePromoFromModal = async function () {
+    const idxStr = document.getElementById("editPromoId").value;
+    const titulo = document.getElementById("promoTitle").value.trim();
+    if (!titulo) { alert("Escribe el título de la promoción."); return; }
+
+    const item = {
+        titulo,
+        descripcion: document.getElementById("promoDesc").value.trim(),
+        descuento: document.getElementById("promoBadge").value.trim(),
+        inicio: document.getElementById("promoStart").value,
+        fin: document.getElementById("promoEnd").value,
+        activa: document.getElementById("promoActive").checked
+    };
+
+    if (idxStr === "") promotions.push(item);
+    else promotions[Number(idxStr)] = item;
+
+    await savePromotionsToDb();
+    closeModal("promoModal");
+    showToast("✅ Promoción guardada");
+};
+
+window.togglePromoActive = async function (idx) {
+    promotions[idx].activa = !promotions[idx].activa;
+    await savePromotionsToDb();
+};
+
+window.deletePromo = async function (idx) {
+    promotions.splice(idx, 1);
+    await savePromotionsToDb();
+    showToast("🗑️ Promoción eliminada");
+};
+
+async function savePromotionsToDb() {
+    localStorage.setItem("rr_promotions", JSON.stringify(promotions));
+    renderPublicPromotions();
+    renderAdminPromotions();
+    if (firebaseReady && db) {
+        await setDoc(doc(db, "config", "promociones"), { lista: promotions }).catch(err => console.error(err));
+    }
+}
+
+function loadAdminConfigForms() {
+    document.getElementById("cfgIsOpen").checked = !!siteConfig.abierto;
+    document.getElementById("cfgOpenLabel").textContent = siteConfig.abierto ? "🟢 RESTAURANTE ABIERTO" : "🔴 RESTAURANTE CERRADO";
+    document.getElementById("cfgName").value = siteConfig.restaurante || "";
+    document.getElementById("cfgTagline").value = siteConfig.eslogan || "";
+    document.getElementById("cfgWhatsapp").value = siteConfig.whatsapp || "";
+    document.getElementById("cfgPhone").value = siteConfig.telefonoVisible || "";
+    document.getElementById("cfgAddress").value = siteConfig.direccion || "";
+    document.getElementById("cfgMapsUrl").value = siteConfig.googleMapsUrl || DEFAULT_SITE_CONFIG.googleMapsUrl;
+    document.getElementById("cfgHours").value = siteConfig.horarios || "";
+    document.getElementById("cfgDays").value = siteConfig.diasServicio || "";
+    document.getElementById("cfgSocial").value = siteConfig.redes || "";
+    document.getElementById("cfgDesc").value = siteConfig.descripcion || "";
+    document.getElementById("cfgBlockWhenClosed").checked = !!siteConfig.bloquearSiCerrado;
+
+    const srv = siteConfig.servicios || DEFAULT_SITE_CONFIG.servicios;
+    document.getElementById("srvDeliveryEnabled").checked = !!srv.domicilioActivo;
+    document.getElementById("srvDeliveryCost").value = srv.costoEnvio || 0;
+    document.getElementById("srvSuggestedTip").value = srv.propinaSugerida || 0;
+    document.getElementById("srvDineInEnabled").checked = !!srv.comerEnLocalActivo;
+    document.getElementById("srvTableNumberEnabled").checked = !!srv.pedirMesa;
+    document.getElementById("srvPickupEnabled").checked = !!srv.recogerActivo;
+
+    const pay = siteConfig.pagos || DEFAULT_SITE_CONFIG.pagos;
+    document.getElementById("payCash").checked = !!pay.efectivo;
+    document.getElementById("payTransfer").checked = !!pay.transferencia;
+    document.getElementById("payCard").checked = !!pay.tarjeta;
+
+    const ap = siteConfig.apariencia || DEFAULT_SITE_CONFIG.apariencia;
+    document.getElementById("uiPrimaryColor").value = ap.primaryColor || "#E11D48";
+    document.getElementById("uiSecondaryColor").value = ap.secondaryColor || "#E5A93B";
+    document.getElementById("uiDarkColor").value = ap.darkColor || "#0D0D10";
+    document.getElementById("uiSparklesText").value = ap.sparklesText || "";
+    document.getElementById("uiWelcomeText").value = ap.welcomeText || "";
+    document.getElementById("uiShowDoodles").checked = ap.showDoodles !== false;
+}
+
+window.saveRestaurantConfig = async function () {
+    siteConfig.abierto = document.getElementById("cfgIsOpen").checked;
+    siteConfig.restaurante = document.getElementById("cfgName").value.trim() || "Rio Rosa";
+    siteConfig.eslogan = document.getElementById("cfgTagline").value.trim();
+    siteConfig.whatsapp = document.getElementById("cfgWhatsapp").value.trim();
+    siteConfig.telefonoVisible = document.getElementById("cfgPhone").value.trim();
+    siteConfig.direccion = document.getElementById("cfgAddress").value.trim();
+    siteConfig.googleMapsUrl = document.getElementById("cfgMapsUrl").value.trim() || DEFAULT_SITE_CONFIG.googleMapsUrl;
+    siteConfig.horarios = document.getElementById("cfgHours").value.trim();
+    siteConfig.diasServicio = document.getElementById("cfgDays").value.trim();
+    siteConfig.redes = document.getElementById("cfgSocial").value.trim();
+    siteConfig.descripcion = document.getElementById("cfgDesc").value.trim();
+    siteConfig.bloquearSiCerrado = document.getElementById("cfgBlockWhenClosed").checked;
+
+    await saveSiteConfigToDb();
+    loadAdminConfigForms();
+    showToast("✅ Configuración del restaurante guardada");
+};
+
+window.saveServicesAndPayments = async function () {
+    siteConfig.servicios = {
+        domicilioActivo: document.getElementById("srvDeliveryEnabled").checked,
+        costoEnvio: Number(document.getElementById("srvDeliveryCost").value || 0),
+        propinaSugerida: Number(document.getElementById("srvSuggestedTip").value || 0),
+        comerEnLocalActivo: document.getElementById("srvDineInEnabled").checked,
+        pedirMesa: document.getElementById("srvTableNumberEnabled").checked,
+        recogerActivo: document.getElementById("srvPickupEnabled").checked
+    };
+    siteConfig.pagos = {
+        efectivo: document.getElementById("payCash").checked,
+        transferencia: document.getElementById("payTransfer").checked,
+        tarjeta: document.getElementById("payCard").checked
+    };
+    await saveSiteConfigToDb();
+    showToast("✅ Servicios y métodos de pago actualizados");
+};
+
+window.saveAppearanceConfig = async function () {
+    siteConfig.apariencia = {
+        primaryColor: document.getElementById("uiPrimaryColor").value,
+        secondaryColor: document.getElementById("uiSecondaryColor").value,
+        darkColor: document.getElementById("uiDarkColor").value,
+        sparklesText: document.getElementById("uiSparklesText").value.trim(),
+        welcomeText: document.getElementById("uiWelcomeText").value.trim(),
+        showDoodles: document.getElementById("uiShowDoodles").checked
+    };
+    await saveSiteConfigToDb();
+    showToast("✅ Apariencia del sitio actualizada");
+};
+
+async function saveSiteConfigToDb() {
+    localStorage.setItem("rr_siteConfig", JSON.stringify(siteConfig));
+    applyAllPublicUpdates();
+    if (firebaseReady && db) {
+        await setDoc(doc(db, "config", "general"), siteConfig).catch(err => console.error(err));
+    }
+}
+
+window.closeModal = function (modalId) {
+    document.getElementById(modalId).classList.remove("open");
+};
+
+window.closeModalOutside = function (e, modalId) {
+    if (e.target.id === modalId) closeModal(modalId);
+};
+
+applyAllPublicUpdates();
+initFirebaseSync();
+</script>
+</body>
+</html>
